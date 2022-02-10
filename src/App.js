@@ -2,21 +2,6 @@ import React from 'react'
 import './App.css';
 import {
   ChakraProvider,
-  Stack,
-  Avatar,
-  AvatarBadge,
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription,
-  FormLabel,
-  Input,
-  FormHelperText,
-  FormErrorMessage,
-  Switch,
-  InputGroup,
-  InputRightElement,
-  Icon,
   Flex,
   Image,
   Box,
@@ -25,14 +10,20 @@ import {
   Grid,
   Button
 } from '@chakra-ui/react'
-import { EmailIcon, CopyIcon } from '@chakra-ui/icons'
 import bugsy from "./assets/bugsy.png"
 import hook from "./assets/hook.png"
 import kenji from "./assets/kenji.png"
 import {FaTwitter, FaDiscord} from 'react-icons/fa';
-import opensea from "./assets/opensea.svg"
+// import opensea from "./assets/opensea.svg"
 
-const App = () => (
+const App = () => {
+  const getCountdown = () => {
+    const now = new Date(Date.now());
+    const target = new Date(2022, 1, 26) 
+    return target.getDate() - now.getDate();
+  }
+
+  return (
   <ChakraProvider resetCSS>
     <Flex
       display="flex"
@@ -48,7 +39,7 @@ const App = () => (
         src="https://pbs.twimg.com/profile_images/1487429268921622531/woPzkzcQ_400x400.jpg"
         borderRadius={100}
         ml={64}
-        mt={2}
+        
         mb={2}
         mr={4}
       />
@@ -117,11 +108,18 @@ const App = () => (
           width={1}
           height={16}
           backgroundColor="#B32033"
-          ml={4}
-          mr={4}
           color="#B32033"
         />
-        <Box display="flex">
+        <Box mr={32} >
+          <Text color="#171717" fontSize={18} className="heading">  
+            Minting In
+          </Text>
+          <Text mt={-4} color="#171717" fontSize={42} className="heading">  
+            {getCountdown()} days
+          </Text>
+        </Box>
+
+        {/* <Box display="flex">
           <Box display="flex" alignItems="center">
             <Box display="flex" pr={8}>
               <Button
@@ -154,7 +152,7 @@ const App = () => (
               Mint Now
             </Button>
           </Box>
-        </Box>
+        </Box> */}
       </Box>
       <Box
         display="flex"
@@ -171,7 +169,7 @@ const App = () => (
             borderColor="blackAlpha.500"
             height={1}
             backgroundColor="#B32033"
-            opacity={0.92}
+            opacity={1}
             mt={4}
           />
           <Text color="#ffffff" maxWidth={480} mt={8}>
@@ -233,52 +231,233 @@ const App = () => (
           />
           <Box mt={8}>
             <Text color="#ffffff" className="heading" fontSize={"2xl"}>Phase 1</Text>
-            <Text color="#ffffff" mt={4}>
+            <Box display="flex" alignItems="stretch" justifyContent="flex-start" mt={4}>
+              <Image
+                mt={1}
+                mr={2}
+                height={4}
+                width={4}
+                src="https://pbs.twimg.com/profile_images/1487429268921622531/woPzkzcQ_400x400.jpg"
+                borderRadius={100}
+              />
+              <Text color="#ffffff">
               Build the Azuki Ape Social Club Twitter page through organic
-              growth. Provide ~333 Whitelist spots based on various criteria. We
+              growth. 
+              </Text>
+            </Box>
+            <Box display="flex" alignItems="stretch" justifyContent="flex-start">
+              <Image
+                mt={1}
+                mr={2}
+                height={4}
+                width={4}
+                src="https://pbs.twimg.com/profile_images/1487429268921622531/woPzkzcQ_400x400.jpg"
+                borderRadius={100}
+              />
+              <Text color="#ffffff">
+              Provide ~333 Whitelist spots based on various criteria. We
               will provide further WL spots as we get closer to mint. Please
-              note - This will not exceed 450 in total. Open access to the
-              Discord for the public. Provide up to 10 NFT & Merch giveaways in
-              the lead up to mint. We will be providing FREE Azuki Ape Social
-              Club T-Shirts for all WL members after mint. At this stage, we
-              will collect size information for these. Please note, whilst these
-              are free, WL members will need to cover shipping fees.
-            </Text>
+              note - This will not exceed 450 in total. 
+              </Text>
+            </Box>
+
+            <Box display="flex" alignItems="stretch" justifyContent="flex-start">
+              <Image
+                mt={1}
+                mr={2}
+                height={4}
+                width={4}
+                src="https://pbs.twimg.com/profile_images/1487429268921622531/woPzkzcQ_400x400.jpg"
+                borderRadius={100}
+              />
+              <Text color="#ffffff">
+              Open access to the Discord for the public. 
+              </Text>
+            </Box>
+
+            <Box display="flex" alignItems="stretch" justifyContent="flex-start">
+              <Image
+                mt={1}
+                mr={2}
+                height={4}
+                width={4}
+                src="https://pbs.twimg.com/profile_images/1487429268921622531/woPzkzcQ_400x400.jpg"
+                borderRadius={100}
+              />
+              <Text color="#ffffff">
+              Provide up to 10 NFT & Merch giveaways in the lead up to mint. 
+              </Text>
+            </Box>
+
+            <Box display="flex" alignItems="stretch" justifyContent="flex-start">
+              <Image
+                mt={1}
+                mr={2}
+                height={4}
+                width={4}
+                src="https://pbs.twimg.com/profile_images/1487429268921622531/woPzkzcQ_400x400.jpg"
+                borderRadius={100}
+              />
+              <Text color="#ffffff">
+              We will be providing FREE Azuki Ape Social Club T-Shirts for all 
+              WL members after mint. At this stage, we will collect size information for these. 
+              Please note, whilst these are free, WL members will need to cover shipping fees.
+              </Text>
+            </Box>
           </Box>
           <Box mt={8}>
             <Text color="#ffffff" className="heading" fontSize={"2xl"}>Phase 2</Text>
-            <Text color="#ffffff" mt={4}>
-              Launch the Azuki Ape Social Club with the initial ~333 early
-              access private launch (WL). Launch the Azuki Ape Social Club in
-              full with the remaining ~3,000 Azuki Apes via public sale. Open up
-              a private Discord channel whereby members of the Azuki Ape Social
+            <Box display="flex" alignItems="stretch" justifyContent="flex-start" mt={4}>
+              <Image
+              mt={1}
+              mr={2}
+                height={4}
+                width={4}
+                src="https://pbs.twimg.com/profile_images/1487429268921622531/woPzkzcQ_400x400.jpg"
+                borderRadius={100}
+              />
+              <Text color="#ffffff">
+                Launch the Azuki Ape Social Club with the initial ~333 early
+                access private launch (WL). 
+              </Text>
+            </Box>
+            <Box display="flex" alignItems="stretch" justifyContent="flex-start">
+              <Image
+                mt={1}
+                mr={2}
+                height={4}
+                width={4}
+                src="https://pbs.twimg.com/profile_images/1487429268921622531/woPzkzcQ_400x400.jpg"
+                borderRadius={100}
+              />
+              <Text color="#ffffff">
+                Launch the Azuki Ape Social Club in full with the remaining ~3,000 
+                Azuki Apes via public sale. 
+              </Text>
+            </Box>
+            <Box display="flex" alignItems="stretch" justifyContent="flex-start">
+              <Image
+                mt={1}
+                mr={2}
+                height={4}
+                width={4}
+                src="https://pbs.twimg.com/profile_images/1487429268921622531/woPzkzcQ_400x400.jpg"
+                borderRadius={100}
+              />
+              <Text color="#ffffff">
+              Open up a private Discord channel whereby members of the Azuki Ape Social
               Club will have access to by connecting their wallets via Collab
-              Land. The Azuki Ape Social Club will thereafter be able to be
+              Land. 
+              </Text>
+            </Box>
+            <Box display="flex" alignItems="stretch" justifyContent="flex-start">
+              <Image
+                mt={1}
+                mr={2}
+                height={4}
+                width={4}
+                src="https://pbs.twimg.com/profile_images/1487429268921622531/woPzkzcQ_400x400.jpg"
+                borderRadius={100}
+              />
+              <Text color="#ffffff">
+              The Azuki Ape Social Club will thereafter be able to be
               traded on secondary markets (OpenSea & LooksRare). Please note,
               selling/trading your Azuki Ape will thereby forfeit your
               membership to the Azuki Ape Social Club.
-            </Text>
+              </Text>
+            </Box>
           </Box>
           <Box mt={8}>
             <Text color="#ffffff" className="heading" fontSize={"2xl"}>Phase 3</Text>
-            <Text color="#ffffff" mt={4}>
+            <Box display="flex" alignItems="stretch" justifyContent="flex-start" mt={4}>
+              <Image
+                mt={1}
+                mr={2}
+                height={4}
+                width={4}
+                src="https://pbs.twimg.com/profile_images/1487429268921622531/woPzkzcQ_400x400.jpg"
+                borderRadius={100}
+              />
+              <Text color="#ffffff">
               Future development funds will be generated with the intention to
               develop and expand the project through new proposals. These
               proposals will be driven by the membership of the Azuki Ape Social
-              Club. Develop an area for merchandise of AASC to be sold via the
-              website. Kickstart monthly giveaways to Azuki Ape Social Club
-              members - These will include gifts such as Playstations, Xbox’s,
-              Iphones etc! Open discussions with the Azuki Ape Social Club
-              pertaining to the potential creation of an ERC-20 token that
-              members could receive. Utility from this token will be decided by
-              the membership. Initial thoughts include access to merchandise,
-              passive income, live events, or future mints of potential
-              secondary collections. Fulfil the delivery of the FREE Azuki Ape
-              Social Club T-Shirts for those WL members. Deliver further
-              exclusive benefits to societal members of the Azuki Ape Social
-              Club, including early access to future mints, and WL spots for
-              projects of interest.
-            </Text>
+              Club. 
+              </Text>
+            </Box>
+            <Box display="flex" alignItems="stretch" justifyContent="flex-start" >
+              <Image
+                mt={1}
+                mr={2}
+                height={4}
+                width={4}
+                src="https://pbs.twimg.com/profile_images/1487429268921622531/woPzkzcQ_400x400.jpg"
+                borderRadius={100}
+              />
+              <Text color="#ffffff">
+              Develop an area for merchandise of AASC to be sold via the website.
+              </Text>
+            </Box>
+            <Box display="flex" alignItems="stretch" justifyContent="flex-start" >
+              <Image
+                mt={1}
+                mr={2}
+                height={4}
+                width={4}
+                src="https://pbs.twimg.com/profile_images/1487429268921622531/woPzkzcQ_400x400.jpg"
+                borderRadius={100}
+              />
+              <Text color="#ffffff">
+              Kickstart monthly giveaways to Azuki Ape Social Club members - These will include gifts such as Playstations, Xbox’s, Iphones etc!
+              </Text>
+            </Box>
+            
+            </Box>
+            <Box display="flex" alignItems="stretch" justifyContent="flex-start" >
+              <Image
+                mt={1}
+                mr={2}
+                height={4}
+                width={4}
+                src="https://pbs.twimg.com/profile_images/1487429268921622531/woPzkzcQ_400x400.jpg"
+                borderRadius={100}
+              />
+              <Text color="#ffffff">
+              Open discussions with the Azuki Ape Social Club pertaining to the 
+              potential creation of an ERC-20 token that members could receive. 
+              Utility from this token will be decided by the membership. 
+              Initial thoughts include access to merchandise, passive income, 
+              live events, or future mints of potential secondary collections. 
+              </Text>
+            </Box>
+            <Box display="flex" alignItems="stretch" justifyContent="flex-start" >
+              <Image
+                mt={1}
+                mr={2}
+                height={4}
+                width={4}
+                src="https://pbs.twimg.com/profile_images/1487429268921622531/woPzkzcQ_400x400.jpg"
+                borderRadius={100}
+              />
+              <Text color="#ffffff">
+              Fulfil the delivery of the FREE Azuki Ape Social Club T-Shirts for 
+              those WL members. 
+              </Text>
+            </Box>
+            <Box display="flex" alignItems="stretch" justifyContent="flex-start" >
+              <Image
+                mt={1}
+                mr={2}
+                height={4}
+                width={4}
+                src="https://pbs.twimg.com/profile_images/1487429268921622531/woPzkzcQ_400x400.jpg"
+                borderRadius={100}
+              />
+              <Text color="#ffffff">
+              Deliver further exclusive benefits to societal members of the 
+              Azuki Ape Social Club, including early access to future mints, 
+              and WL spots for projects of interest.
+              </Text>
           </Box>
         </Box>
       </Box>
@@ -304,7 +483,7 @@ const App = () => (
             AASC is a creation of three minds. These minds fused together two prodigious NFT collections into one remarkably exclusive social club.
           </Text>
         </Box>
-        <Box display="flex" alignItems="flex-start" mt={8}>
+        <Box display="flex" alignItems="flex-start" mt={4}>
           <Box mr={4} maxWidth="128px">
             <Image
               height="auto"
@@ -350,5 +529,6 @@ const App = () => (
     </Box>
   </ChakraProvider>
 )
+}
 
 export default App
