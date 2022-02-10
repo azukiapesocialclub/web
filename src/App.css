@@ -1,3 +1,24 @@
+@font-face {
+  font-family: 'Bebas Neue';
+  src: local('Bebas Neue'),url(../public/fonts/BebasNeue-Regular.ttf) format('truetype');
+}
+
+.heading {
+  font-family: 'Bebas Neue';
+}
+
+.team-name {
+  font-weight: 1200;
+  margin-top: 8px;
+}
+
+.team-desc {
+  font-weight: 100;
+  font-style: italic;
+  font-size: 0.75rem;
+  margin-top: 4px;
+}
+
 .App {
   text-align: center;
 }
