@@ -2,7 +2,6 @@ import React from 'react'
 import './App.css';
 import {
   ChakraProvider,
-  Flex,
   Image,
   Box,
   Text,
@@ -13,7 +12,7 @@ import {
 import bugsy from "./assets/bugsy.png"
 import hook from "./assets/hook.png"
 import kenji from "./assets/kenji.png"
-import {FaTwitter, FaDiscord} from 'react-icons/fa';
+import Navbar from './components/Navbar';
 // import opensea from "./assets/opensea.svg"
 
 const App = () => {
@@ -25,57 +24,7 @@ const App = () => {
 
   return (
   <ChakraProvider resetCSS>
-    <Flex
-      display="flex"
-      flexDirection="row"
-      alignItems="center"
-      justifyContent="space-between"
-      textAlign="center"
-      backgroundColor="#171717"
-    >
-      <Image
-        height="48px"
-        width="48px"
-        src="https://pbs.twimg.com/profile_images/1487429268921622531/woPzkzcQ_400x400.jpg"
-        borderRadius={100}
-        ml={64}
-        
-        mb={2}
-        mr={4}
-      />
-      <Box display="flex" justifyContent="center" alignItems="center" ml={4}>
-        <Box mr={8}>
-          <a href='#'>
-          <Text color="#ffffff" className="heading">Home</Text>
-          </a>
-        </Box>
-        <Box mr={8}>
-          <a href='#roadmap'>
-          <Text color="#ffffff" className="heading">Roadmap</Text>
-          </a>
-        </Box>
-        <Box mr={16}>
-          <a href='#team'>
-          <Text color="#ffffff" className="heading">Team</Text>
-          </a>
-        </Box>
-        <Box mr={4}>
-          <a href='https://twitter.com/AzukiApeSC' target="_blank" rel="noreferrer">
-            <FaTwitter color="#ffffff" />
-          </a>
-        </Box>
-        <Box mr={64}>
-          <a href='https://discord.gg/hxBx9y2urE' target="_blank" rel="noreferrer">
-          <FaDiscord color="#ffffff" />
-          </a>
-        </Box>
-        {/* <Box mr={64}>
-          <a href='https://twitter.com/AzukiApeSC'>
-          <Image src={opensea} height={4} width={4} />
-          </a>
-        </Box> */}
-      </Box>
-    </Flex>
+    <Navbar/>
     <Box backgroundColor="#171717">
       <Box>
         <Image
@@ -86,31 +35,31 @@ const App = () => {
       </Box>
       <Box
         backgroundColor="#EBE7DC"
-        display="flex"
+        display={{base:"block",lg:"flex"}}
         justifyContent="space-between"
         alignItems="center"
         m={8}
-        ml={64}
-        mr={64}
-        pl={24}
-        pr={24}
-        pt={8}
-        pb={8}
+        ml={{base:8, lg:64}}
+        mr={{base:8, lg:64}}
+        pl={{base:4, lg:24}}
+        pr={{base:4, lg:24}}
+        pt={{base:2, lg:8}}
+        pb={{base:2, lg:8}}
       >
         <Box>
-          <Text color="#AF1D30" fontSize={48} mr={16} className="heading">
+          <Text color="#AF1D30" fontSize={48} mr={{base:0,lg:16}} className="heading">
             Join the Club
           </Text>
         </Box>
         <Divider
           borderColor="#B32033"
-          orientation="horizontal"
-          width={1}
-          height={16}
+          orientation={{base: "vertical", lg:"horizontal"}}
+          width={{base:"100%", lg: 1}}
+          height={{base:1,lg:16}}
           backgroundColor="#B32033"
           color="#B32033"
         />
-        <Box mr={32} >
+        <Box mr={{base:0, lg:32}} mt={{base:8, lg:0}} >
           <Text color="#171717" fontSize={18} className="heading">  
             Minting In
           </Text>
@@ -155,13 +104,13 @@ const App = () => {
         </Box> */}
       </Box>
       <Box
-        display="flex"
+        display={{base:"block",lg:"flex"}}
         justifyContent="space-between"
         alignItems="space-between"
         m={8}
-        ml={64}
-        mr={64}
-        mt={24}
+        ml={{base: 8, lg:64}}
+        mr={{base: 8, lg:64}}
+        mt={{base: 8, lg:24}}
       >
         <Box>
           <Text color="#ffffff" className="heading" fontSize={"3xl"}>Welcome to Azuki Ape Social Club</Text>
@@ -182,8 +131,8 @@ const App = () => {
             token will be dependent on the completion of mint
           </Text>
         </Box>
-        <Box maxWidth="30%">
-          <Grid templateColumns="repeat(2, 1fr)" gap={2} display="grid">
+        <Box maxWidth={{base:"100%",lg:"30%"}} mt={{base:4, lg:0}} >
+          <Grid templateColumns="repeat(2, 1fr)" gap={4} display="grid">
             <Image
               height="auto"
               width="auto"
@@ -216,9 +165,9 @@ const App = () => {
         justifyContent="space-between"
         alignItems="space-between"
         m={8}
-        ml={64}
-        mr={64}
-        mt={24}
+        ml={{base: 8, lg:64}}
+        mr={{base: 8, lg:64}}
+        mt={{base: 8, lg:24}}
       >
         <Box>
           <Text id="roadmap" color="#ffffff" className="heading" fontSize={"3xl"}>Roadmap</Text>
@@ -465,10 +414,10 @@ const App = () => {
         display="block"
         justifyContent="space-between"
         alignItems="space-between"
-        ml={64}
-        mr={64}
-        mt={24}
-        pb={32}
+        ml={{base: 8, lg:64}}
+        mr={{base: 8, lg:64}}
+        mt={{base: 8, lg:24}}
+        pb={{base: 8, lg:32}}
       >
         <Box>
           <Text id="team" color="#ffffff" className="heading" fontSize={"3xl"}>The Team</Text>
@@ -483,8 +432,8 @@ const App = () => {
             AASC is a creation of three minds. These minds fused together two prodigious NFT collections into one remarkably exclusive social club.
           </Text>
         </Box>
-        <Box display="flex" alignItems="flex-start" mt={4}>
-          <Box mr={4} maxWidth="128px">
+        <Box display="flex" alignItems="flex-start" justifyContent="flex-start" mt={4}>
+          <Box mr={4} maxWidth={{base:"72px", lg:"128px"}}>
             <Image
               height="auto"
               width="auto"
@@ -496,7 +445,7 @@ const App = () => {
             </Text>
             <Text color="#fff" className="team-desc">INTO NFTS, APES, AND BLOCKCHAIN (AKA THE HOLY TRILOGY). </Text>
           </Box>
-          <Box mr={4} maxWidth="128px">
+          <Box mr={4} maxWidth={{base:"72px", lg:"128px"}}>
             <Image
               height="auto"
               width="auto"
@@ -510,7 +459,7 @@ const App = () => {
               GTA V BILLIONARE. HATES MUSHROOMS.
             </Text>
           </Box>
-          <Box mr={4} maxWidth="128px">
+          <Box mr={4} maxWidth={{base:"72px", lg:"128px"}}>
             <Image
               height="auto"
               width="auto"
