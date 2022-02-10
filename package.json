@@ -2,7 +2,7 @@
   "name": "web",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://azukiapesocialclub.github.io/",
+  "homepage": "https://azukiapesocialclub.com",
   "dependencies": {
     "@chakra-ui/icons": "^1.0.9",
     "@chakra-ui/react": "^1.5.0",
@@ -21,7 +21,7 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -b main -d build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
