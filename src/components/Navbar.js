@@ -16,6 +16,7 @@ import {
   useDisclosure,
   useMediaQuery,
 } from '@chakra-ui/react';
+import { Link, animateScroll as scroll } from "react-scroll";
 import {FaTwitter, FaDiscord, FaBars, FaInstagram} from 'react-icons/fa';
 import { useRef } from 'react';
 
@@ -24,19 +25,35 @@ const Navbar = () => {
     const renderExpandedMenu = () => (
         <>
         <Box mr={8}>
-        <a href='#'>
-        <Text color="#ffffff" className="heading">Home</Text>
-        </a>
+        <Link 
+            to="banner"
+            smooth={true}
+            offset={-100}
+            style={{cursor:'pointer'}}
+            onClick={onClose}
+        > 
+        <Text color="#ffffff" className="heading navbar-item navbar-item-ltr">Home</Text>
+        </Link>
         </Box>
         <Box mr={8}>
-        <a href='#roadmap'>
-        <Text color="#ffffff" className="heading">Roadmap</Text>
-        </a>
+        <Link 
+            to="roadmap"
+            smooth={true}
+            offset={-100}
+            style={{cursor:'pointer'}}
+        > 
+        <Text color="#ffffff" className="heading navbar-item navbar-item-ltr">Roadmap</Text>
+        </Link>
         </Box>
         <Box mr={16}>
-        <a href='#team'>
-        <Text color="#ffffff" className="heading">Team</Text>
-        </a>
+        <Link 
+            to="team"
+            smooth={true}
+            offset={-40}
+            style={{cursor:'pointer'}}
+        > 
+            <Text color="#ffffff" className="heading navbar-item navbar-item-ltr">Team</Text>
+        </Link>
         </Box>
         <Box mr={4}>
         <a href='https://twitter.com/AzukiApeSC' target="_blank" rel="noreferrer">
@@ -76,6 +93,13 @@ const Navbar = () => {
           <DrawerBody
                 backgroundColor="#171717"
         >
+        <Link 
+            to="banner"
+            smooth={true}
+            offset={-100}
+            style={{cursor:'pointer'}}
+            onClick={onClose}
+        > 
         <Image
             height="48px"
             width="48px"
@@ -84,20 +108,39 @@ const Navbar = () => {
             ml={2}
             mt={4}
         />
+        </Link>
         <Box mr={8}>
-        <a href='#'>
+        <Link 
+            to="banner"
+            smooth={true}
+            offset={-100}
+            style={{cursor:'pointer'}}
+            onClick={onClose}
+        > 
         <Text color="#ffffff" className="heading" fontSize={36} mt={4} ml={4}>Home</Text>
-        </a>
+        </Link>
         </Box>
         <Box mr={8} mt={4}>
-        <a href='#roadmap'>
+        <Link 
+            to="roadmap"
+            smooth={true}
+            offset={-40}
+            style={{cursor:'pointer'}}
+            onClick={onClose}
+        > 
         <Text color="#ffffff" className="heading" fontSize={36} mt={4} ml={4}>Roadmap</Text>
-        </a>
+        </Link>
         </Box>
         <Box mr={16}>
-        <a href='#team'>
-        <Text color="#ffffff" className="heading" fontSize={36} mt={4} ml={4}>Team</Text>
-        </a>
+        <Link 
+            to="team"
+            smooth={true}
+            offset={-40}
+            style={{cursor:'pointer'}}
+            onClick={onClose}
+        > 
+            <Text color="#ffffff" className="heading" fontSize={36} mt={4} ml={4}>Team</Text>
+        </Link>
         </Box>
         <Box mt={8} ml={4} display="flex" justifyContent="flex-start" alignItems="center">
             <Box >
@@ -132,8 +175,16 @@ const Navbar = () => {
             textAlign="center"
             backgroundColor="#171717"
             width="100%"
+            position="sticky"
+            top={0}
+            zIndex={999}
             >
-                <a href="/">
+            <Link 
+                to="banner"
+                smooth={true}
+                offset={-100}
+                style={{cursor:'pointer'}}
+            > 
                 <Image
                 height="48px"
                 width="48px"
@@ -145,7 +196,7 @@ const Navbar = () => {
                 mr={4}
                 mt={2}
             />
-                </a>
+                </Link>
            
             {/* {renderExpandedMenu()} */}
         <Box display="flex" justifyContent="center" alignItems="center">

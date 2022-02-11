@@ -28,6 +28,7 @@ const App = () => {
     <Box backgroundColor="#171717">
       <Box>
         <Image
+          id="banner"
           height="100%"
           width="100%"
           src="https://pbs.twimg.com/profile_banners/1484206469285236736/1643465567/1500x500"

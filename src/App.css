@@ -57,3 +57,35 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+.navbar-item {
+  text-decoration: none;
+  color: #B32033;
+  padding: 12px 0px;
+  display: inline-block;
+  position: relative;
+  opacity: 0.75;
+}
+
+.navbar-item:hover {
+  opacity: 1;
+}
+
+.navbar-item::before {
+  transition: 300ms;
+  height: 4px;
+  content: '';
+  position: absolute;
+  background-color: #B32033;
+}
+
+.navbar-item-ltr::before {
+  width: 0%;
+  bottom: 10px;
+}
+
+.navbar-item-ltr:hover::before {
+  width: 100%;
+}
