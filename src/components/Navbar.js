@@ -16,7 +16,7 @@ import {
   useDisclosure,
   useMediaQuery,
 } from '@chakra-ui/react';
-import {FaTwitter, FaDiscord, FaBars} from 'react-icons/fa';
+import {FaTwitter, FaDiscord, FaBars, FaInstagram} from 'react-icons/fa';
 import { useRef } from 'react';
 
 const Navbar = () => {
@@ -41,6 +41,11 @@ const Navbar = () => {
         <Box mr={4}>
         <a href='https://twitter.com/AzukiApeSC' target="_blank" rel="noreferrer">
             <FaTwitter color="#ffffff" />
+        </a>
+        </Box>
+        <Box mr={4}>
+        <a href='https://www.instagram.com/azukiapesocialclub' target="_blank" rel="noreferrer">
+            <FaInstagram color="#ffffff" />
         </a>
         </Box>
         <Box mr={{base: 0, lg:64}}>
@@ -105,6 +110,11 @@ const Navbar = () => {
             <FaDiscord  fontSize={24} color="#ffffff" />
             </a>
             </Box>
+            <Box ml={4}>
+            <a href='https://www.instagram.com/azukiapesocialclub' target="_blank" rel="noreferrer">
+            <FaInstagram  fontSize={24} color="#ffffff" />
+            </a>
+            </Box>
         </Box>
         
           </DrawerBody>
@@ -123,7 +133,8 @@ const Navbar = () => {
             backgroundColor="#171717"
             width="100%"
             >
-            <Image
+                <a href="/">
+                <Image
                 height="48px"
                 width="48px"
                 src="https://pbs.twimg.com/profile_images/1487429268921622531/woPzkzcQ_400x400.jpg"
@@ -134,6 +145,8 @@ const Navbar = () => {
                 mr={4}
                 mt={2}
             />
+                </a>
+           
             {/* {renderExpandedMenu()} */}
         <Box display="flex" justifyContent="center" alignItems="center">
             {isDesktop?renderExpandedMenu():renderCollapsedMenu()}
