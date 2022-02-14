@@ -7,7 +7,6 @@ import {
   Text,
   Divider,
   Grid,
-  Button
 } from '@chakra-ui/react'
 import bugsy from "./assets/bugsy.png"
 import hook from "./assets/hook.png"

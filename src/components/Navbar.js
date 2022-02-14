@@ -7,16 +7,11 @@ import {
   Drawer,
   DrawerOverlay,
   DrawerContent,
-  DrawerCloseButton,
-  DrawerHeader,
   DrawerBody,
-  Input,
-  DrawerFooter,
-  Button,
   useDisclosure,
   useMediaQuery,
 } from '@chakra-ui/react';
-import { Link, animateScroll as scroll } from "react-scroll";
+import { Link } from "react-scroll";
 import {FaTwitter, FaDiscord, FaBars, FaInstagram} from 'react-icons/fa';
 import { useRef } from 'react';
 
@@ -78,9 +73,9 @@ const Navbar = () => {
     const renderCollapsedMenu = () => (
         <>
             <Box mr={{base: 16, lg:64}}>
-            <a onClick={onOpen}  ref={btnRef}>
-            <FaBars color="#ffffff" />
-            </a>
+                <button onClick={onOpen} ref={btnRef}>
+                    <FaBars color="#ffffff" />
+                </button>
             </Box>
       <Drawer
         isOpen={isOpen}
