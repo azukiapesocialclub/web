@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    name: Production Deploy
+    name: Deploy
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:

@@ -7,9 +7,9 @@ jobs:
   #   * deploy a draft every time there is a commit that is not on master branch
   #   * comment on that commit with the deploy URL
   deployCommitDraft:
-    name: Deploy draft to Netlify
+    name: Deploy
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref != 'refs/heads/master'
+    if: github.event_name == 'push' && github.ref != 'refs/heads/main'
     steps:
       - name: checkout repository
         uses: actions/checkout@v1
