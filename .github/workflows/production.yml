@@ -17,6 +17,7 @@ jobs:
         run: npm install
       - name: git config
         run: |
+          git remote set-url origin https://owenyuwono:${{ secrets.GITHUB_TOKEN }}@github.com/azukiapesocialclub/web
           git config --global user.name 'azukiapesocialclub'
           git config --global user.email 'owenyuwono@gmail.com'
       - name: deploy to production
