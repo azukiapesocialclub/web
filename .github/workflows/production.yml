@@ -11,11 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
-      - name: Checkout
+      - name: checkout repository
         uses: actions/checkout@v1
-      - name: Install
+      - name: install dependencies
         run: npm install
-      - name: Build
-        run: npm run build
-      - name: Deploy
+      - name: git config
+        run: |
+        git config --global user.name 'azukiapesocialclub'
+        git config --global user.email 'owenyuwono@gmail.com'
+      - name: deploy to production
         run: npm run deploy
