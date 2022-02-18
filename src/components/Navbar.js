@@ -12,11 +12,12 @@ import {
   useMediaQuery,
 } from '@chakra-ui/react';
 import { Link } from "react-scroll";
-import {FaTwitter, FaDiscord, FaBars, FaInstagram} from 'react-icons/fa';
+import { FaTwitter, FaDiscord, FaBars, FaInstagram } from 'react-icons/fa';
 import { useRef } from 'react';
 
 const Navbar = () => {
     const [isDesktop] = useMediaQuery('(min-width: 62em)')
+
     const renderExpandedMenu = () => (
         <>
         <Box mr={8}>

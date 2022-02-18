@@ -13,12 +13,19 @@ import hook from "./assets/hook.png"
 import kenji from "./assets/kenji.png"
 import Navbar from './components/Navbar';
 // import opensea from "./assets/opensea.svg"
+import moment from "moment-timezone";
 
 const App = () => {
   const getCountdown = () => {
-    const now = new Date(Date.now());
-    const target = new Date(2022, 1, 26) 
-    return target.getDate() - now.getDate();
+    const now = moment.tz(moment.now(), "Europe/London");
+    const target = moment.tz("2022-02-26 15:30", "Europe/London");
+    const diff = target.subtract(now)
+    return {
+      days: diff.date(),
+      hours: diff.hour(),
+      minutes: diff.minute(),
+      seconds: diff.second(),
+    };
   }
 
   return (
@@ -41,13 +48,13 @@ const App = () => {
         m={8}
         ml={{base:8, lg:64}}
         mr={{base:8, lg:64}}
-        pl={{base:4, lg:24}}
-        pr={{base:4, lg:24}}
+        pl={{base:4, lg:16}}
+        pr={{base:4, lg:16}}
         pt={{base:2, lg:8}}
         pb={{base:2, lg:8}}
       >
-        <Box>
-          <Text color="#AF1D30" fontSize={48} mr={{base:0,lg:16}} className="heading">
+        <Box width={{base:"100%", lg:"50%"}} >
+          <Text color="#AF1D30" fontSize={"4vw"} className="heading">
             Join the Club
           </Text>
         </Box>
@@ -59,12 +66,12 @@ const App = () => {
           backgroundColor="#B32033"
           color="#B32033"
         />
-        <Box mr={{base:0, lg:32}} mt={{base:8, lg:0}} >
-          <Text color="#171717" fontSize={18} className="heading">  
+        <Box mt={{base:8, lg:0}} px={{base:0, lg: 4}} width={{base:"100%", lg:"50%"}}>
+          <Text color="#171717" fontSize={"1rem"} className="heading">  
             Minting In
           </Text>
-          <Text mt={-4} color="#171717" fontSize={42} className="heading">  
-            {getCountdown()} days
+          <Text mt={-2} color="#171717" fontSize={"2vw"} className="heading">  
+            {getCountdown().days} days {getCountdown().hours} hours {getCountdown().minutes} minutes
           </Text>
         </Box>
 
