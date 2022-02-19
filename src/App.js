@@ -12,8 +12,12 @@ import bugsy from "./assets/bugsy.png"
 import hook from "./assets/hook.png"
 import kenji from "./assets/kenji.png"
 import Navbar from './components/Navbar';
+import merch1 from "./assets/merch/model_1.png";
+import merch2 from "./assets/merch/model_2.png";
+import merch3 from "./assets/merch/model_3.png";
 // import opensea from "./assets/opensea.svg"
 import moment from "moment-timezone";
+import Slider from "react-slick";
 
 const App = () => {
   const getCountdown = () => {
@@ -417,6 +421,79 @@ const App = () => {
           </Box>
         </Box>
       </Box>
+
+      <Box
+        display={{base:"block",lg:"flex"}}
+        justifyContent="space-between"
+        alignItems="space-between"
+        m={8}
+        ml={{base: 8, lg:64}}
+        mr={{base: 8, lg:64}}
+        mt={{base: 8, lg:24}}
+        id="merchandise"
+      >
+
+      
+        <Box>
+          <Text color="#ffffff" className="heading" fontSize={"3xl"}>AASC Merchandise</Text>
+          <Divider
+            borderColor="blackAlpha.500"
+            height={1}
+            backgroundColor="#B32033"
+            opacity={1}
+            mt={4}
+          />
+          <Text color="#ffffff" maxWidth={480} mt={8}>
+          As an exclusive societal club, we need to stand out. We want people to recognise our society and know that when they see our logo, they are looking at the most exclusive social club on the Blockchain. 
+
+As a result of this desire, we will be launching our own merchandise for members to wear. Such merchandise will include this AASC T-Shirt which WL members will receive for FREE! 
+
+Watch this space for more street wear inspired AASC merch!
+          </Text>
+        </Box>
+        <link
+        rel="stylesheet"
+        type="text/css"
+        charSet="UTF-8"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+      />
+      <link
+        rel="stylesheet"
+        type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+      />
+        
+        <Box maxWidth={{base:"100%",lg:"30%"}} mt={{base:4, lg:0}} ml={{base:0, lg:16}}>
+          <Slider speed={500} slidesToShow={1} slidesToScroll={1} infinite={true} dots={true}>
+            <Image
+              height={256}
+              width={256}
+              src={merch1}
+              borderRadius={8}
+              objectFit="cover"
+              backgroundColor={"white"}
+            />
+            <Image
+              height={256}
+              width={256}
+              src={merch2}
+              borderRadius={8}
+              objectFit="cover"
+              backgroundColor={"white"}
+            />
+            <Image
+              height={256}
+              width={256}
+              src={merch3}
+              borderRadius={8}
+              objectFit="cover"
+              backgroundColor={"white"}
+            />
+          </Slider>
+          
+        </Box>
+      </Box>
+
       <Box
         display="block"
         justifyContent="space-between"

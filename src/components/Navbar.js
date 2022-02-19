@@ -41,6 +41,16 @@ const Navbar = () => {
         <Text color="#ffffff" className="heading navbar-item navbar-item-ltr">Roadmap</Text>
         </Link>
         </Box>
+        <Box mr={8}>
+        <Link 
+            to="merchandise"
+            smooth={true}
+            offset={-100}
+            style={{cursor:'pointer'}}
+        > 
+        <Text color="#ffffff" className="heading navbar-item navbar-item-ltr">Merchandise</Text>
+        </Link>
+        </Box>
         <Box mr={16}>
         <Link 
             to="team"
@@ -125,6 +135,16 @@ const Navbar = () => {
             onClick={onClose}
         > 
         <Text color="#ffffff" className="heading" fontSize={36} mt={4} ml={4}>Roadmap</Text>
+        </Link>
+        </Box>
+        <Box mr={8}>
+        <Link 
+            to="merchandise"
+            smooth={true}
+            offset={-100}
+            style={{cursor:'pointer'}}
+        > 
+        <Text color="#ffffff" className="heading navbar-item navbar-item-ltr">Merchandise</Text>
         </Link>
         </Box>
         <Box mr={16}>
