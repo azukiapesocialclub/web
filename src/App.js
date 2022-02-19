@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './App.css';
 import {
   ChakraProvider,
@@ -7,6 +7,8 @@ import {
   Text,
   Divider,
   Grid,
+  Input,
+  Button,
 } from '@chakra-ui/react'
 import bugsy from "./assets/bugsy.png"
 import hook from "./assets/hook.png"
@@ -18,9 +20,110 @@ import merch3 from "./assets/merch/model_3.png";
 // import opensea from "./assets/opensea.svg"
 import moment from "moment-timezone";
 import Slider from "react-slick";
+import Web3 from 'web3';
+import config from "./config/config";
+import contract from "./contracts/AzukiApe.json";
+import MerkleTree from "merkletreejs";
+import keccak256 from "keccak256";
+import allowlist from "./config/allowlist";
 
 const App = () => {
-  const getCountdown = () => {
+  const [web3, setWeb3] = useState({});
+  const [address, setAddress] = useState('');
+  const [mint, setMint] = useState(1);
+  const [chainId, setChainId] = useState(1);
+  const [merkle, setMerkle] = useState({});
+
+  useEffect(()=>{
+    const eth = window.ethereum;
+    const web3 = new Web3(eth);
+    const wrapper = async () => {
+      await eth.request({ method: 'eth_requestAccounts' });
+    }
+    wrapper().then(async ()=>{
+      eth.on('accountsChanged', async (accounts) => {
+        console.log(accounts);
+      });
+      eth.on('chainChanged', () => {
+        window.location.reload();
+      });
+      setWeb3(web3);
+      const chainId = await web3.eth.getChainId();
+      setChainId(chainId);
+      const accounts = await web3.eth.getAccounts();
+      if (accounts.length > 0) setAddress(accounts[0]);
+      else if (Web3.utils.isAddress(accounts)) setAddress(accounts);
+    })
+    buildMerkleTree();
+  },[]);
+
+  const buildMerkleTree = () => {
+    const leaves = allowlist.map(x => keccak256(x))
+    const tree = new MerkleTree(leaves, keccak256, {
+      sortPairs: true,
+    })
+    const root = tree.getRoot().toString('hex')
+    console.log(root);
+    setMerkle({ tree, root })
+  }
+
+  const isAllowed = (addr) => {
+    const {tree, proof, root} = merkle;
+    return tree.verify(proof, keccak256(addr), root);
+  }
+
+  function getProof(addr) {
+    const {tree} = merkle;
+    return tree.getHexProof(keccak256(addr));
+  }
+
+  const onMint = async () => {
+    const c = new web3.eth.Contract(contract.abi, config[chainId].contract_address);
+    const amount = Web3.utils.fromDecimal(mint);
+    try {
+      const price = await c.methods.price().call({});
+      const balance = await web3.eth.getBalance(address);
+      const proof = getProof(address);
+      if (balance < price * amount) {
+        // txtMint.textContent = 'Insufficient ETH';
+        return;
+      }
+      const gas = await c.methods.mint(amount, proof).estimateGas({
+        from: address,
+        value: price * amount,
+      });
+      c.methods
+        .mint(amount, proof)
+        .send({
+          from: address,
+          gas: Math.floor(gas * 1.1),
+          value: price * amount,
+        })
+        .on('receipt', (receipt) => {console.log(receipt)})
+        .on('transactionHash', (hash) => {console.log(hash)})
+        .on('error', (error) => {console.log(error)});
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const changeMintNumber = (increment) => {
+    if(increment) {
+      if(mint >= 5) {
+        return;
+      }
+      setMint(mint+1);
+    } else {
+      if(mint <= 1) {
+        return;
+      }
+      setMint(mint-1);
+    }
+  }
+
+  const whitelistMintDate = moment.tz("2022-02-26 15:30", "Europe/London")
+  const publicMintDate = moment.tz("2022-02-27 15:30", "Europe/London")
+  const getCountdown = (date) => {
     const now = moment.tz(moment.now(), "Europe/London");
     const target = moment.tz("2022-02-26 15:30", "Europe/London");
     const diff = moment.duration(target.diff(now));
@@ -70,49 +173,64 @@ const App = () => {
           backgroundColor="#B32033"
           color="#B32033"
         />
-        <Box mt={{base:2, lg:0}} px={{base:0, lg: 4}} width={{base:"100%", lg:"50%"}}>
+        {/* <Box mt={{base:2, lg:0}} px={{base:0, lg: 4}} width={{base:"100%", lg:"50%"}}>
           <Text color="#171717" fontSize={"1rem"} className="heading">  
             Minting In
           </Text>
           <Text mt={-2} color="#171717" fontSize={"2rem"} className="heading">  
-            {getCountdown().days} days {getCountdown().hours} hours {getCountdown().minutes} minutes
+            {getCountdown(whitelistMintDate).days} days {getCountdown(whitelistMintDate).hours} hours {getCountdown(whitelistMintDate).minutes} minutes
           </Text>
-        </Box>
+        </Box> */}
 
-        {/* <Box display="flex">
-          <Box display="flex" alignItems="center">
-            <Box display="flex" pr={8}>
+        <Box  mt={{base:8, lg:0}} px={{base:0, lg: 4}} width={{base:"100%", lg:"50%"}}>
+            <Text color="#171717" fontSize={"1rem"} className="heading">  
+              Public sale starts in {getCountdown(publicMintDate).hours} hours {getCountdown(publicMintDate).minutes} minutes {getCountdown(publicMintDate).seconds} seconds
+            </Text>
+          <Box display="flex">
+            <Box display="flex" alignItems="center">
+              <Box display="flex" pr={8}>
+                <Button
+                  variant="solid"
+                  size="md"
+                  backgroundColor="#B32033"
+                  color="#fff"
+                  className="heading"
+                  onClick={()=>changeMintNumber(false)}
+                >
+                  -
+                </Button>
+                <Input backgroundColor="#fff" fontSize="sm" maxWidth="50%" value={mint} onChange={(e)=>{
+                  const v = e.target.value;
+                  if(v>5) v=5;
+                  if(v<1) v=1;
+                  setMint(v)
+                }} type="number"/>
+                <Button
+                  variant="solid"
+                  size="md"
+                  color="#ffffff"
+                  backgroundColor="#B32033"
+                  className="heading"
+                  onClick={()=>changeMintNumber(true)}
+                >
+                  +
+                </Button>
+              </Box>
               <Button
                 variant="solid"
-                size="md"
+                size="lg"
                 backgroundColor="#B32033"
-                color="#fff"
-                className="heading"
-              >
-                -
-              </Button>
-              <Input backgroundColor="#fff" fontSize="sm" maxWidth="50%" />
-              <Button
-                variant="solid"
-                size="md"
                 color="#ffffff"
-                backgroundColor="#B32033"
                 className="heading"
+                px={{base:0, lg: 12}}
+                onClick={onMint}
               >
-                +
+                Mint Now
               </Button>
             </Box>
-            <Button
-              variant="solid"
-              size="lg"
-              backgroundColor="#B32033"
-              color="#ffffff"
-              className="heading"
-            >
-              Mint Now
-            </Button>
           </Box>
-        </Box> */}
+        </Box>
+        
       </Box>
       <Box
         display={{base:"block",lg:"flex"}}
