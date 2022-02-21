@@ -70,11 +70,11 @@ const App = () => {
           backgroundColor="#B32033"
           color="#B32033"
         />
-        <Box mt={{base:8, lg:0}} px={{base:0, lg: 4}} width={{base:"100%", lg:"50%"}}>
+        <Box mt={{base:2, lg:0}} px={{base:0, lg: 4}} width={{base:"100%", lg:"50%"}}>
           <Text color="#171717" fontSize={"1rem"} className="heading">  
             Minting In
           </Text>
-          <Text mt={-2} color="#171717" fontSize={"2vw"} className="heading">  
+          <Text mt={-2} color="#171717" fontSize={"2rem"} className="heading">  
             {getCountdown().days} days {getCountdown().hours} hours {getCountdown().minutes} minutes
           </Text>
         </Box>
