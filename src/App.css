@@ -3,6 +3,12 @@
   src: local('Bebas Neue'),url(../public/fonts/BebasNeue-Regular.ttf) format('truetype');
 }
 
+.bfv {
+  backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
 .heading {
   font-family: 'Bebas Neue';
 }

@@ -37,12 +37,15 @@ const App = () => {
     <Navbar/>
     <Box backgroundColor="#171717">
       <Box>
-        <Image
+        <video width="100%" height="100%" controls muted autoPlay loop>
+          <source src="./bg.mp4" type="video/mp4"/>
+          <Image
           id="banner"
           height="100%"
           width="100%"
           src="https://pbs.twimg.com/profile_banners/1484206469285236736/1643465567/1500x500"
         />
+        </video>
       </Box>
       <Box
         backgroundColor="#EBE7DC"
@@ -50,12 +53,9 @@ const App = () => {
         justifyContent="space-between"
         alignItems="center"
         m={8}
-        ml={{base:8, lg:64}}
-        mr={{base:8, lg:64}}
-        pl={{base:4, lg:16}}
-        pr={{base:4, lg:16}}
-        pt={{base:2, lg:8}}
-        pb={{base:2, lg:8}}
+        mx={{base:8, lg:64}}
+        px={{base:4, lg:16}}
+        py={{base:2, lg:8}}
       >
         <Box width={{base:"100%", lg:"50%"}} >
           <Text color="#AF1D30" fontSize={"4vw"} className="heading">

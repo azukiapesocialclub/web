@@ -191,7 +191,7 @@ const Navbar = () => {
             textAlign="center"
             backgroundColor="#171717"
             width="100%"
-            position="sticky"
+            position={{base:"sticky", lg:"fixed"}}
             top={0}
             zIndex={999}
             >
