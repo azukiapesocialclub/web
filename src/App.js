@@ -6,9 +6,16 @@ import {
   Box,
   Text,
   Divider,
-  Grid,
+  Grid, GridItem,
   Input,
   Button,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
 } from '@chakra-ui/react'
 import bugsy from "./assets/bugsy.png"
 import hook from "./assets/hook.png"
@@ -26,6 +33,10 @@ import contract from "./contracts/AzukiApe.json";
 import MerkleTree from "merkletreejs";
 import keccak256 from "keccak256";
 import allowlist from "./config/allowlist";
+import loader from "./assets/loader.svg";
+
+const whitelistMintDate = moment.tz("2022-02-26 15:30", "Europe/London")
+const publicMintDate = moment.tz("2022-02-27 15:30", "Europe/London")
 
 const App = () => {
   const [web3, setWeb3] = useState({});
@@ -33,6 +44,13 @@ const App = () => {
   const [mint, setMint] = useState(1);
   const [chainId, setChainId] = useState(1);
   const [merkle, setMerkle] = useState({});
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [txHash, setTxHash] = useState('');
+  const [mintDone, setMintDone] = useState(false); 
+  const [tokenIds, setTokenIds] = useState([]);
+  const [countdown, setCountdown] = useState({});
+  const [contract, setContract] = useState({}); 
+  const [allowed, setAllowed] = useState(false);
 
   useEffect(()=>{
     const eth = window.ethereum;
@@ -50,12 +68,25 @@ const App = () => {
       setWeb3(web3);
       const chainId = await web3.eth.getChainId();
       setChainId(chainId);
+      let addr;
       const accounts = await web3.eth.getAccounts();
-      if (accounts.length > 0) setAddress(accounts[0]);
-      else if (Web3.utils.isAddress(accounts)) setAddress(accounts);
+      if (accounts.length > 0) addr = accounts[0];
+      else if (Web3.utils.isAddress(accounts)) addr = accounts;
+      setAddress(addr);
+      const c = new web3.eth.Contract(contract.abi, config[chainId].contract_address);
+      setContract(c);
+      const {t, r} = buildMerkleTree();
+      const a = await c.methods.isAllowed(t.getHexProof(keccak256(addr)), addr).call({});
+      setAllowed(a);
     })
-    buildMerkleTree();
   },[]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setCountdown(getCountdown());
+    }, 1000);
+    return () => clearTimeout(timer);
+  });
 
   const buildMerkleTree = () => {
     const leaves = allowlist.map(x => keccak256(x))
@@ -65,6 +96,7 @@ const App = () => {
     const root = tree.getRoot().toString('hex')
     console.log(root);
     setMerkle({ tree, root })
+    return {tree, root};
   }
 
   const isAllowed = (addr) => {
@@ -99,8 +131,22 @@ const App = () => {
           gas: Math.floor(gas * 1.1),
           value: price * amount,
         })
-        .on('receipt', (receipt) => {console.log(receipt)})
-        .on('transactionHash', (hash) => {console.log(hash)})
+        .on('receipt', (receipt) => {
+          console.log(receipt);
+          const trf = receipt.events.Transfer;
+          if(Array.isArray(trf)) {
+            setTokenIds(trf.map(v=>v.returnValues.tokenId))
+          } else {
+            setTokenIds(trf.returnValues.tokenId)
+          }
+          setMintDone(true);
+          onOpen();
+        })
+        .on('transactionHash', (hash) => {
+          setTxHash(hash);
+          setMintDone(false);
+          onOpen();
+        })
         .on('error', (error) => {console.log(error)});
     } catch (err) {
       console.log(err);
@@ -121,12 +167,15 @@ const App = () => {
     }
   }
 
-  const whitelistMintDate = moment.tz("2022-02-26 15:30", "Europe/London")
-  const publicMintDate = moment.tz("2022-02-27 15:30", "Europe/London")
-  const getCountdown = (date) => {
+  const getCountdown = () => {
     const now = moment.tz(moment.now(), "Europe/London");
-    const target = moment.tz("2022-02-26 15:30", "Europe/London");
-    const diff = moment.duration(target.diff(now));
+    let date;
+    if(now.isBefore(whitelistMintDate)) {
+      date = whitelistMintDate;
+    } else {
+      date = publicMintDate;
+    }
+    const diff = moment.tz(date.diff(now), "Europe/London");
     return {
       days: diff.days(),
       hours: diff.hours(),
@@ -135,12 +184,96 @@ const App = () => {
     };
   }
 
+  const renderMintedItems = () => {
+    const r = [];
+    tokenIds.forEach(v=>{
+      r.push(<Button colorScheme='red' width="100%" variant={"outline"} mb={4} onClick={()=>{
+        window.open(`https://opensea.io/${config[chainId].contract_address}/${v}`)
+      }}>
+        Azuki Ape Social Club - #{v}
+      </Button>)
+    })
+    return r;
+  }
+
+  const renderMintButton = () => {
+    <Box display="flex">
+      <Box display="flex" alignItems="center">
+        <Box display="flex" pr={8}>
+          <Button
+            variant="solid"
+            size="md"
+            backgroundColor="#B32033"
+            color="#fff"
+            className="heading"
+            onClick={()=>changeMintNumber(false)}
+          >
+            -
+          </Button>
+          <Input backgroundColor="#fff" fontSize="sm" maxWidth="50%" value={mint} onChange={(e)=>{
+            const v = e.target.value;
+            if(v>5) v=5;
+            if(v<1) v=1;
+            setMint(v)
+          }} type="number"/>
+          <Button
+            variant="solid"
+            size="md"
+            color="#ffffff"
+            backgroundColor="#B32033"
+            className="heading"
+            onClick={()=>changeMintNumber(true)}
+          >
+            +
+          </Button>
+        </Box>
+        <Button
+          variant="solid"
+          size="lg"
+          backgroundColor="#B32033"
+          color="#ffffff"
+          className="heading"
+          px={{base:0, lg: 12}}
+          onClick={onMint}
+        >
+          Mint Now
+        </Button>
+      </Box>
+    </Box>
+  }
+
+  const renderMintContainer = () => {
+    const now = moment.tz(moment.now(), "Europe/London");
+    if(now.isBefore(whitelistMintDate)) {
+      return <>
+        <Text color="#171717" fontSize={"1rem"} className="heading">  
+          Minting In
+        </Text>
+        <Text mt={-2} color="#171717" fontSize={"2rem"} className="heading">  
+          {getCountdown().days} days {getCountdown().hours} hours {getCountdown().minutes} minutes
+        </Text>
+      </>
+    }
+    if(now.isAfter(whitelistMintDate) && now.isBefore(publicMintDate)) {
+      return <>
+        <Text color="#171717" fontSize={"1rem"} className="heading">  
+          Public sale starts in {countdown.hours} hours {countdown.minutes} minutes {countdown.seconds} seconds
+        </Text>
+        {allowed?renderMintButton():<Text color="#171717" fontSize={"1.5rem"} className="heading">  
+          You are not whitelisted
+        </Text>}
+      </>
+    }
+    return renderMintButton();
+  }
+
   return (
   <ChakraProvider resetCSS>
     <Navbar/>
+    
     <Box backgroundColor="#171717">
       <Box>
-        <video width="100%" height="100%" controls muted autoPlay loop>
+        {/* <video width="100%" height="100%" controls muted autoPlay loop>
           <source src="./bg.mp4" type="video/mp4"/>
           <Image
           id="banner"
@@ -148,8 +281,31 @@ const App = () => {
           width="100%"
           src="https://pbs.twimg.com/profile_banners/1484206469285236736/1643465567/1500x500"
         />
-        </video>
+        </video> */}
+          <Image
+          id="banner"
+          height="100%"
+          width="100%"
+          src="https://pbs.twimg.com/profile_banners/1484206469285236736/1643465567/1500x500"
+        />
       </Box>
+      <Modal isOpen={isOpen} onClose={onClose}>
+      <ModalOverlay />
+      <ModalContent backgroundColor="#171717">
+        <ModalHeader className='heading' color={"white"} display="flex">{
+          mintDone?"MINTED":<><Image src={loader} width="32px" height="32px" mr={4}/>Minting your azuki ape</>
+        }</ModalHeader>
+        <ModalCloseButton color={"white"} />
+        <ModalBody color={"white"}>
+          {mintDone?
+          renderMintedItems()
+          :
+          <Button backgroundColor='#AF1D30' width="100%" mb={4} onClick={()=>window.open(`https://etherscan.io/tx/${txHash}`)}>
+            View on Etherscan
+          </Button>}
+        </ModalBody>
+      </ModalContent>
+    </Modal>
       <Box
         backgroundColor="#EBE7DC"
         display={{base:"block",lg:"flex"}}
@@ -158,7 +314,7 @@ const App = () => {
         m={8}
         mx={{base:8, lg:64}}
         px={{base:4, lg:16}}
-        py={{base:2, lg:8}}
+        py={{base:2, lg:4}}
       >
         <Box width={{base:"100%", lg:"50%"}} >
           <Text color="#AF1D30" fontSize={"4vw"} className="heading">
@@ -173,62 +329,8 @@ const App = () => {
           backgroundColor="#B32033"
           color="#B32033"
         />
-        {/* <Box mt={{base:2, lg:0}} px={{base:0, lg: 4}} width={{base:"100%", lg:"50%"}}>
-          <Text color="#171717" fontSize={"1rem"} className="heading">  
-            Minting In
-          </Text>
-          <Text mt={-2} color="#171717" fontSize={"2rem"} className="heading">  
-            {getCountdown(whitelistMintDate).days} days {getCountdown(whitelistMintDate).hours} hours {getCountdown(whitelistMintDate).minutes} minutes
-          </Text>
-        </Box> */}
-
-        <Box  mt={{base:8, lg:0}} px={{base:0, lg: 4}} width={{base:"100%", lg:"50%"}}>
-            <Text color="#171717" fontSize={"1rem"} className="heading">  
-              Public sale starts in {getCountdown(publicMintDate).hours} hours {getCountdown(publicMintDate).minutes} minutes {getCountdown(publicMintDate).seconds} seconds
-            </Text>
-          <Box display="flex">
-            <Box display="flex" alignItems="center">
-              <Box display="flex" pr={8}>
-                <Button
-                  variant="solid"
-                  size="md"
-                  backgroundColor="#B32033"
-                  color="#fff"
-                  className="heading"
-                  onClick={()=>changeMintNumber(false)}
-                >
-                  -
-                </Button>
-                <Input backgroundColor="#fff" fontSize="sm" maxWidth="50%" value={mint} onChange={(e)=>{
-                  const v = e.target.value;
-                  if(v>5) v=5;
-                  if(v<1) v=1;
-                  setMint(v)
-                }} type="number"/>
-                <Button
-                  variant="solid"
-                  size="md"
-                  color="#ffffff"
-                  backgroundColor="#B32033"
-                  className="heading"
-                  onClick={()=>changeMintNumber(true)}
-                >
-                  +
-                </Button>
-              </Box>
-              <Button
-                variant="solid"
-                size="lg"
-                backgroundColor="#B32033"
-                color="#ffffff"
-                className="heading"
-                px={{base:0, lg: 12}}
-                onClick={onMint}
-              >
-                Mint Now
-              </Button>
-            </Box>
-          </Box>
+        <Box mt={{base:8, lg:0}} px={{base:0, lg: 4}} width={{base:"100%", lg:"50%"}}>
+          {renderMintContainer()}
         </Box>
         
       </Box>
