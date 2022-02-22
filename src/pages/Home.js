@@ -319,7 +319,7 @@ const Home = () => {
     
     <Box backgroundColor="#171717">
       <Box>
-        {/* <video width="100%" height="100%" controls muted autoPlay loop>
+        <video width="100%" height="100%" controls muted autoPlay loop>
           <source src="./bg.mp4" type="video/mp4"/>
           <Image
           id="banner"
@@ -327,13 +327,7 @@ const Home = () => {
           width="100%"
           src="https://pbs.twimg.com/profile_banners/1484206469285236736/1643465567/1500x500"
         />
-        </video> */}
-          <Image
-          id="banner"
-          height="100%"
-          width="100%"
-          src="https://pbs.twimg.com/profile_banners/1484206469285236736/1643465567/1500x500"
-        />
+        </video>
       </Box>
       <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
