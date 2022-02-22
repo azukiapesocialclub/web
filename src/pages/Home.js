@@ -35,7 +35,7 @@ import allowlist from "../config/allowlist";
 import loader from "../assets/loader.svg";
 import loaderWhite from "../assets/loader_white.svg";
 
-const whitelistMintDate = moment.tz("2022-02-21 15:30", "Europe/London")
+const whitelistMintDate = moment.tz("2022-02-26 15:30", "Europe/London")
 const publicMintDate = moment.tz("2022-02-27 15:30", "Europe/London")
 
 const Home = () => {
