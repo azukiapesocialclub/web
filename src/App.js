@@ -6,15 +6,9 @@ import {
   Box,
   Text,
   Divider,
-  Grid, GridItem,
+  Grid,
   Input,
   Button,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalCloseButton,
   useDisclosure,
 } from '@chakra-ui/react'
 import bugsy from "./assets/bugsy.png"
@@ -29,11 +23,11 @@ import moment from "moment-timezone";
 import Slider from "react-slick";
 import Web3 from 'web3';
 import config from "./config/config";
-import contract from "./contracts/AzukiApe.json";
+import azukiApe from "./contracts/AzukiApe.json";
 import MerkleTree from "merkletreejs";
 import keccak256 from "keccak256";
 import allowlist from "./config/allowlist";
-import loader from "./assets/loader.svg";
+import CustomModal from './components/CustomModal';
 
 const whitelistMintDate = moment.tz("2022-02-26 15:30", "Europe/London")
 const publicMintDate = moment.tz("2022-02-27 15:30", "Europe/London")
@@ -51,6 +45,7 @@ const App = () => {
   const [countdown, setCountdown] = useState({});
   const [contract, setContract] = useState({}); 
   const [allowed, setAllowed] = useState(false);
+  const [errMsg, setErrMsg] = useState(undefined);
 
   useEffect(()=>{
     const eth = window.ethereum;
@@ -73,9 +68,9 @@ const App = () => {
       if (accounts.length > 0) addr = accounts[0];
       else if (Web3.utils.isAddress(accounts)) addr = accounts;
       setAddress(addr);
-      const c = new web3.eth.Contract(contract.abi, config[chainId].contract_address);
+      const c = new web3.eth.Contract(azukiApe.abi, config[chainId].contract_address);
       setContract(c);
-      const {t, r} = buildMerkleTree();
+      const [t] = buildMerkleTree();
       const a = await c.methods.isAllowed(t.getHexProof(keccak256(addr)), addr).call({});
       setAllowed(a);
     })
@@ -93,15 +88,10 @@ const App = () => {
     const tree = new MerkleTree(leaves, keccak256, {
       sortPairs: true,
     })
-    const root = tree.getRoot().toString('hex')
-    console.log(root);
-    setMerkle({ tree, root })
-    return {tree, root};
-  }
-
-  const isAllowed = (addr) => {
-    const {tree, proof, root} = merkle;
-    return tree.verify(proof, keccak256(addr), root);
+    const root = tree.getRoot().toString('hex');
+    console.log(root, tree);
+    setMerkle({ tree, root });
+    return [tree, root];
   }
 
   function getProof(addr) {
@@ -110,21 +100,20 @@ const App = () => {
   }
 
   const onMint = async () => {
-    const c = new web3.eth.Contract(contract.abi, config[chainId].contract_address);
     const amount = Web3.utils.fromDecimal(mint);
     try {
-      const price = await c.methods.price().call({});
+      const price = await contract.methods.price().call({});
       const balance = await web3.eth.getBalance(address);
       const proof = getProof(address);
       if (balance < price * amount) {
         // txtMint.textContent = 'Insufficient ETH';
         return;
       }
-      const gas = await c.methods.mint(amount, proof).estimateGas({
+      const gas = await contract.methods.mint(amount, proof).estimateGas({
         from: address,
         value: price * amount,
       });
-      c.methods
+      contract.methods
         .mint(amount, proof)
         .send({
           from: address,
@@ -149,7 +138,8 @@ const App = () => {
         })
         .on('error', (error) => {console.log(error)});
     } catch (err) {
-      console.log(err);
+      setErrMsg(err);
+      onOpen();
     }
   }
 
@@ -184,19 +174,7 @@ const App = () => {
     };
   }
 
-  const renderMintedItems = () => {
-    const r = [];
-    tokenIds.forEach(v=>{
-      r.push(<Button colorScheme='red' width="100%" variant={"outline"} mb={4} onClick={()=>{
-        window.open(`https://opensea.io/${config[chainId].contract_address}/${v}`)
-      }}>
-        Azuki Ape Social Club - #{v}
-      </Button>)
-    })
-    return r;
-  }
-
-  const renderMintButton = () => {
+  const renderMintButton = () => (
     <Box display="flex">
       <Box display="flex" alignItems="center">
         <Box display="flex" pr={8}>
@@ -211,7 +189,7 @@ const App = () => {
             -
           </Button>
           <Input backgroundColor="#fff" fontSize="sm" maxWidth="50%" value={mint} onChange={(e)=>{
-            const v = e.target.value;
+            let v = e.target.value;
             if(v>5) v=5;
             if(v<1) v=1;
             setMint(v)
@@ -240,7 +218,7 @@ const App = () => {
         </Button>
       </Box>
     </Box>
-  }
+  );
 
   const renderMintContainer = () => {
     const now = moment.tz(moment.now(), "Europe/London");
@@ -289,23 +267,16 @@ const App = () => {
           src="https://pbs.twimg.com/profile_banners/1484206469285236736/1643465567/1500x500"
         />
       </Box>
-      <Modal isOpen={isOpen} onClose={onClose}>
-      <ModalOverlay />
-      <ModalContent backgroundColor="#171717">
-        <ModalHeader className='heading' color={"white"} display="flex">{
-          mintDone?"MINTED":<><Image src={loader} width="32px" height="32px" mr={4}/>Minting your azuki ape</>
-        }</ModalHeader>
-        <ModalCloseButton color={"white"} />
-        <ModalBody color={"white"}>
-          {mintDone?
-          renderMintedItems()
-          :
-          <Button backgroundColor='#AF1D30' width="100%" mb={4} onClick={()=>window.open(`https://etherscan.io/tx/${txHash}`)}>
-            View on Etherscan
-          </Button>}
-        </ModalBody>
-      </ModalContent>
-    </Modal>
+      <CustomModal 
+        message={errMsg} 
+        mintDone={mintDone} 
+        tokenIds={tokenIds} 
+        contractAddress={config[chainId].contract_address}
+        isOpen={isOpen}
+        onOpen={onOpen}
+        onClose={onClose}
+        txHash={txHash}
+        />
       <Box
         backgroundColor="#EBE7DC"
         display={{base:"block",lg:"flex"}}
