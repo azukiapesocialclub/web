@@ -23,12 +23,12 @@ const App = () => {
   const getCountdown = () => {
     const now = moment.tz(moment.now(), "Europe/London");
     const target = moment.tz("2022-02-26 15:30", "Europe/London");
-    const diff = target.subtract(now)
+    const diff = moment.duration(target.diff(now));
     return {
-      days: diff.date(),
-      hours: diff.hour(),
-      minutes: diff.minute(),
-      seconds: diff.second(),
+      days: diff.days(),
+      hours: diff.hours(),
+      minutes: diff.minutes(),
+      seconds: diff.seconds(),
     };
   }
 
