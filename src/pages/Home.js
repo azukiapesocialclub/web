@@ -122,7 +122,13 @@ const Home = () => {
     const amount = Web3.utils.fromDecimal(mint);
     setDisableMint(true);
     try {
-      const price = await contract.methods.price().call({});
+      let price;
+      const now = moment.tz(moment.now(), "Europe/London");
+      if(now.isBefore(publicMintDate)) {
+        price = await contract.methods.wlPrice().call({});
+      } else {
+        price = await contract.methods.price().call({});
+      }
       const balance = await web3.eth.getBalance(address);
       const proof = getProof(address);
       if (balance < price * amount) {
