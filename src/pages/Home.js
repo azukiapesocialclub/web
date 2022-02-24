@@ -24,6 +24,7 @@ import Navbar from '../components/Navbar';
 import merch1 from "../assets/merch/model_1.png";
 import merch2 from "../assets/merch/model_2.png";
 import merch3 from "../assets/merch/model_3.png";
+import opensea from "../assets/opensea.svg";
 import moment from "moment-timezone";
 import Slider from "react-slick";
 import Web3 from 'web3';
@@ -53,6 +54,7 @@ const Home = () => {
   const [allowed, setAllowed] = useState(false);
   const toast = useToast();
   const [disableMint, setDisableMint] = useState(false);
+  const [minted, setMinted] = useState(0);
 
   useEffect(()=>{
     const eth = window.ethereum;
@@ -61,25 +63,30 @@ const Home = () => {
       await eth.request({ method: 'eth_requestAccounts' });
     }
     wrapper().then(async ()=>{
-      eth.on('accountsChanged', async (accounts) => {
-        console.log(accounts);
-      });
-      eth.on('chainChanged', () => {
-        window.location.reload();
-      });
-      setWeb3(web3);
-      const chainId = await web3.eth.getChainId();
-      setChainId(chainId);
-      let addr;
-      const accounts = await web3.eth.getAccounts();
-      if (accounts.length > 0) addr = accounts[0];
-      else if (Web3.utils.isAddress(accounts)) addr = accounts;
-      setAddress(addr);
-      const c = new web3.eth.Contract(azukiApe.abi, config[chainId].contract_address);
-      setContract(c);
-      const [t] = buildMerkleTree();
-      const a = await c.methods.isAllowed(t.getHexProof(keccak256(addr)), addr).call({});
-      setAllowed(a);
+      try {
+        eth.on('accountsChanged', async (accounts) => {
+          console.log(accounts);
+        });
+        eth.on('chainChanged', () => {
+          window.location.reload();
+        });
+        setWeb3(web3);
+        const chainId = await web3.eth.getChainId();
+        setChainId(chainId);
+        let addr;
+        const accounts = await web3.eth.getAccounts();
+        if (accounts.length > 0) addr = accounts[0];
+        else if (Web3.utils.isAddress(accounts)) addr = accounts;
+        setAddress(addr);
+        const c = new web3.eth.Contract(azukiApe.abi, config[chainId].contract_address);
+        setContract(c);
+        const [t] = buildMerkleTree();
+        const a = await c.methods.isAllowed(t.getHexProof(keccak256(addr)), addr).call({});
+        setAllowed(a);
+        await updateSupplyCounter(c);
+      } catch(err) {
+        console.log(err)
+      }
     })
   },[]);
 
@@ -89,6 +96,11 @@ const Home = () => {
     }, 1000);
     return () => clearTimeout(timer);
   });
+
+  const updateSupplyCounter = async (c) => {
+    const s = await c.methods.totalSupply().call({});
+    setMinted(s);
+  }
 
   const buildMerkleTree = () => {
     const leaves = allowlist.map(x => keccak256(x))
@@ -122,6 +134,7 @@ const Home = () => {
           isClosable: true,
         });
         setDisableMint(false);
+        updateSupplyCounter(contract);
         return;
       }
       const gas = await contract.methods.mint(amount, proof).estimateGas({
@@ -146,12 +159,14 @@ const Home = () => {
           setMintDone(true);
           onOpen();
           setDisableMint(false);
+          updateSupplyCounter(contract);
         })
         .on('transactionHash', (hash) => {
           setTxHash(hash);
           setMintDone(false);
           onOpen();
           setDisableMint(false);
+          updateSupplyCounter(contract);
         })
         .on('error', (error) => {
           console.log(error)
@@ -164,6 +179,7 @@ const Home = () => {
               isClosable: true,
             });
             setDisableMint(false);
+            updateSupplyCounter(contract);
             return;
           }
           toast({
@@ -174,6 +190,7 @@ const Home = () => {
             isClosable: true,
           });
           setDisableMint(false);
+          updateSupplyCounter(contract);
         });
     } catch (err) {
       if(err.code === -32603) {
@@ -185,6 +202,7 @@ const Home = () => {
           isClosable: true,
         });
         setDisableMint(false);
+        updateSupplyCounter(contract);
         return;
       }
       toast({
@@ -195,6 +213,7 @@ const Home = () => {
         isClosable: true,
       });
       setDisableMint(false);
+      updateSupplyCounter(contract);
     }
   }
 
@@ -220,12 +239,12 @@ const Home = () => {
     } else {
       date = publicMintDate;
     }
-    const diff = moment.tz(date.diff(now), "Europe/London");
+    const diff = moment.duration(date.diff(now));
     return {
-      days: diff.date(),
-      hours: diff.hour(),
-      minutes: diff.minute(),
-      seconds: diff.second(),
+      days: diff.days(),
+      hours: diff.hours(),
+      minutes: diff.minutes(),
+      seconds: diff.seconds(),
     };
   }
 
@@ -290,6 +309,16 @@ const Home = () => {
 
   const renderMintContainer = () => {
     const now = moment.tz(moment.now(), "Europe/London");
+    if(mint >= 3333) {
+      return <Box display="flex" alignItems="center" justifyContent="space-between">
+        <Text color="#171717" fontSize={"2rem"} className="heading">  
+          Sold Out!
+        </Text>
+        <a href='https://twitter.com/AzukiApeSC' target="_blank" rel="noreferrer">
+            <Image src={opensea} width={8} filter="invert(100%)"/>
+        </a>
+      </Box>;
+    }
     if(now.isBefore(whitelistMintDate)) {
       return <>
         <Text color="#171717" fontSize={"1rem"} className="heading">  
@@ -308,6 +337,7 @@ const Home = () => {
         {allowed?renderMintButton():<Text color="#171717" fontSize={"1.5rem"} className="heading">  
           You are not whitelisted
         </Text>}
+        <Text className='heading' float={"right"} fontSize={"sm"}> {minted} / 3333 </Text>
       </>
     }
     return renderMintButton();
