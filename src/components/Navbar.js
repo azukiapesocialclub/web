@@ -14,6 +14,7 @@ import {
 import { Link } from "react-scroll";
 import { FaTwitter, FaDiscord, FaBars, FaInstagram } from 'react-icons/fa';
 import { useRef } from 'react';
+import opensea from "../assets/opensea.svg";
 
 const Navbar = () => {
     const [isDesktop] = useMediaQuery('(min-width: 62em)')
@@ -71,11 +72,16 @@ const Navbar = () => {
             <FaInstagram color="#ffffff" />
         </a>
         </Box>
-        <Box mr={{base: 0, lg:64}}>
+        <Box mr={4}>
         <a href='https://discord.gg/hxBx9y2urE' target="_blank" rel="noreferrer">
         <FaDiscord color="#ffffff" />
         </a>
         </Box>
+            <Box mr={{base: 0, lg:64}}>
+            <a href='https://opensea.io/collection/azukiapesocialclub' target="_blank" rel="noreferrer">
+                <Image src={opensea} width={4}/>
+            </a>
+            </Box>
         </>
     );
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -174,6 +180,12 @@ const Navbar = () => {
             <FaInstagram  fontSize={24} color="#ffffff" />
             </a>
             </Box>
+            <Box ml={4}>
+            <a href='https://opensea.io/collection/azukiapesocialclub' target="_blank" rel="noreferrer">
+                <Image src={opensea} width={6}/>
+            </a>
+            </Box>
+
         </Box>
         
           </DrawerBody>
