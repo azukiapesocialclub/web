@@ -57,6 +57,8 @@ const Home = () => {
   const [minted, setMinted] = useState(0);
 
   useEffect(()=>{
+    const now = moment.tz(moment.now(), "Europe/London");
+    if(now.isBefore(whitelistMintDate)) return;
     const eth = window.ethereum;
     const web3 = new Web3(eth);
     const wrapper = async () => {
@@ -88,7 +90,7 @@ const Home = () => {
         console.log(err)
       }
     })
-  },[]);
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -331,7 +333,7 @@ const Home = () => {
           Minting In
         </Text>
         <Text mt={-2} color="#171717" fontSize={"2rem"} className="heading">  
-          {getCountdown().days} days {getCountdown().hours} hours {getCountdown().minutes} minutes
+          {getCountdown().hours} hours {getCountdown().minutes} minutes {getCountdown().seconds} seconds
         </Text>
       </>
     }
