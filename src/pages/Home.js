@@ -322,7 +322,7 @@ const Home = () => {
         <Text color="#171717" fontSize={"2rem"} className="heading">  
           Sold Out!
         </Text>
-        <a href='https://twitter.com/AzukiApeSC' target="_blank" rel="noreferrer">
+        <a href='https://opensea.io/collection/azukiapesocialclub' target="_blank" rel="noreferrer">
             <Image src={opensea} width={8} filter="invert(100%)"/>
         </a>
       </Box>;
