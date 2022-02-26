@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Bebas Neue';
-  src: local('Bebas Neue'),url(../public/fonts/BebasNeue-Regular.ttf) format('truetype');
+  src: local('Bebas Neue'),url(./assets/fonts/BebasNeue-Regular.ttf) format('truetype');
 }
 
 .bfv {
