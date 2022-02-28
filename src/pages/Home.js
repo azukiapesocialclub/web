@@ -309,7 +309,7 @@ const Home = () => {
           onClick={onMint}
           disabled={disableMint}
         >
-         {disableMint?<Image src={loaderWhite} width="32px" height="32px" mr={4} ml={-2}/>:""} Mint Now for {mint * 0.0375} ETH
+         {disableMint?<Image src={loaderWhite} width="32px" height="32px" mr={4} ml={-2}/>:""} Mint Now for {mint * 375 / 10000} ETH
         </Button>
       </Box>
     </Box>
