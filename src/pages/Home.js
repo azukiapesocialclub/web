@@ -100,7 +100,7 @@ const Home = () => {
 
   const updateSupplyCounter = async (c) => {
     const s = await c.methods.totalSupply().call({});
-    setMinted(s);
+    setMinted(s-1);
   }
 
   const buildMerkleTree = () => {
@@ -316,7 +316,7 @@ const Home = () => {
 
   const renderMintContainer = () => {
     const now = moment.tz(moment.now(), "Europe/London");
-    if(mint >= 3333) {
+    if(minted >= 3333) {
       return <Box display="flex" alignItems="center" justifyContent="space-between">
         <Text color="#171717" fontSize={"2rem"} className="heading">  
           Sold Out!
