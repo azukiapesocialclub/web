@@ -1,30 +1,30 @@
 {
   "files": {
     "main.css": "/static/css/main.1f84ec5c.chunk.css",
-    "main.js": "/static/js/main.01b7d757.chunk.js",
-    "main.js.map": "/static/js/main.01b7d757.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.91c5b6f3.js",
-    "runtime-main.js.map": "/static/js/runtime-main.91c5b6f3.js.map",
-    "static/js/2.257c7839.chunk.js": "/static/js/2.257c7839.chunk.js",
-    "static/js/2.257c7839.chunk.js.map": "/static/js/2.257c7839.chunk.js.map",
-    "static/js/3.5fc03536.chunk.js": "/static/js/3.5fc03536.chunk.js",
-    "static/js/3.5fc03536.chunk.js.map": "/static/js/3.5fc03536.chunk.js.map",
+    "main.js": "/static/js/main.d2aac3ee.chunk.js",
+    "main.js.map": "/static/js/main.d2aac3ee.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.362f2a5a.js",
+    "runtime-main.js.map": "/static/js/runtime-main.362f2a5a.js.map",
+    "static/js/2.9e48e6bf.chunk.js": "/static/js/2.9e48e6bf.chunk.js",
+    "static/js/2.9e48e6bf.chunk.js.map": "/static/js/2.9e48e6bf.chunk.js.map",
+    "static/js/3.6a309990.chunk.js": "/static/js/3.6a309990.chunk.js",
+    "static/js/3.6a309990.chunk.js.map": "/static/js/3.6a309990.chunk.js.map",
     "index.html": "/index.html",
     "static/css/main.1f84ec5c.chunk.css.map": "/static/css/main.1f84ec5c.chunk.css.map",
-    "static/js/2.257c7839.chunk.js.LICENSE.txt": "/static/js/2.257c7839.chunk.js.LICENSE.txt",
+    "static/js/2.9e48e6bf.chunk.js.LICENSE.txt": "/static/js/2.9e48e6bf.chunk.js.LICENSE.txt",
     "static/media/App.css": "/static/media/BebasNeue-Regular.c501e16f.ttf",
-    "static/media/bugsy.aca99ce1.png": "/static/media/bugsy.aca99ce1.png",
-    "static/media/hook.34e725cc.png": "/static/media/hook.34e725cc.png",
-    "static/media/kenji.370e9d5b.png": "/static/media/kenji.370e9d5b.png",
+    "static/media/loader.aeb20937.svg": "/static/media/loader.aeb20937.svg",
+    "static/media/loader_white.2cfd43d9.svg": "/static/media/loader_white.2cfd43d9.svg",
+    "static/media/meet_the_team.01581430.png": "/static/media/meet_the_team.01581430.png",
     "static/media/model_1.811695cb.png": "/static/media/model_1.811695cb.png",
     "static/media/model_2.314e79d0.png": "/static/media/model_2.314e79d0.png",
     "static/media/model_3.b948ff03.png": "/static/media/model_3.b948ff03.png",
     "static/media/opensea.1f5996d8.svg": "/static/media/opensea.1f5996d8.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.91c5b6f3.js",
-    "static/js/2.257c7839.chunk.js",
+    "static/js/runtime-main.362f2a5a.js",
+    "static/js/2.9e48e6bf.chunk.js",
     "static/css/main.1f84ec5c.chunk.css",
-    "static/js/main.01b7d757.chunk.js"
+    "static/js/main.d2aac3ee.chunk.js"
   ]
 }
