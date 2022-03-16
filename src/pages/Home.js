@@ -17,9 +17,7 @@ import {
   useDisclosure,
   useToast,
 } from '@chakra-ui/react'
-import bugsy from "../assets/bugsy.png"
-import hook from "../assets/hook.png"
-import kenji from "../assets/kenji.png"
+import meettheteam from "../assets/meet_the_team.png";
 import Navbar from '../components/Navbar';
 import merch1 from "../assets/merch/model_1.png";
 import merch2 from "../assets/merch/model_2.png";
@@ -35,6 +33,7 @@ import keccak256 from "keccak256";
 import allowlist from "../config/allowlist";
 import loader from "../assets/loader.svg";
 import loaderWhite from "../assets/loader_white.svg";
+import Footer from '../components/Footer';
 
 const whitelistMintDate = moment.tz("2022-02-26 15:30", "Europe/London")
 const publicMintDate = moment.tz("2022-02-27 15:30", "Europe/London")
@@ -818,49 +817,18 @@ Watch this space for more street wear inspired AASC merch!
           </Text>
         </Box>
         <Box display="flex" alignItems="flex-start" justifyContent="flex-start" mt={4}>
-          <Box mr={4} maxWidth={{base:"72px", lg:"128px"}}>
+          <Box mr={4} maxWidth={{base:"720px", lg:"1080px"}}>
             <Image
               height="auto"
               width="auto"
-              src={bugsy}
+              src={meettheteam}
               borderRadius={8}
             />
-            <Text color="#fff" fontSize="lg" fontWeight="bold" className="team-name">
-              AASC | BUGSY
-            </Text>
-            <Text color="#fff" className="team-desc">INTO NFTS, APES, AND BLOCKCHAIN (AKA THE HOLY TRILOGY). </Text>
-          </Box>
-          <Box mr={4} maxWidth={{base:"72px", lg:"128px"}}>
-            <Image
-              height="auto"
-              width="auto"
-              src={hook}
-              borderRadius={8}
-            />
-            <Text color="#fff" fontSize="lg" fontWeight="bold" className="team-name">
-              AASC | HOOK
-            </Text>
-            <Text color="#fff" className="team-desc">
-              GTA V BILLIONARE. HATES MUSHROOMS.
-            </Text>
-          </Box>
-          <Box mr={4} maxWidth={{base:"72px", lg:"128px"}}>
-            <Image
-              height="auto"
-              width="auto"
-              src={kenji}
-              borderRadius={8}
-            />
-            <Text color="#fff" fontSize="lg" fontWeight="bold" className="team-name">
-              AASC | KENJI
-            </Text>
-            <Text color="#fff" className="team-desc">
-              ALSO HATES MUSHROOMS.
-            </Text>
           </Box>
         </Box>
       </Box>
     </Box>
+    <Footer/>
     </>
 )
 }

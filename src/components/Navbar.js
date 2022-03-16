@@ -214,16 +214,16 @@ const Navbar = () => {
                 style={{cursor:'pointer'}}
             > 
                 <Image
-                height="48px"
-                width="48px"
-                src="https://pbs.twimg.com/profile_images/1487429268921622531/woPzkzcQ_400x400.jpg"
-                borderRadius={100}
-                ml={{base:8, lg: 64}}
-                
-                mb={2}
-                mr={4}
-                mt={2}
-            />
+                    height="48px"
+                    width="48px"
+                    src="https://pbs.twimg.com/profile_images/1487429268921622531/woPzkzcQ_400x400.jpg"
+                    borderRadius={100}
+                    ml={{base:8, lg: 64}}
+                    
+                    mb={2}
+                    mr={4}
+                    mt={2}
+                />
                 </Link>
            
             {/* {renderExpandedMenu()} */}
