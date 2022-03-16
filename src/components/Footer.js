@@ -8,7 +8,8 @@ import {
     VisuallyHidden,
     Image
   } from '@chakra-ui/react';
-  import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
+  import { FaInstagram, FaTwitter, FaDiscord } from 'react-icons/fa';
+  import opensea from "../assets/opensea.svg";
   
   const SocialButton = ({
     children,
@@ -64,14 +65,17 @@ import {
 
           <Text>© 2022 Azuki Ape Social Club. All rights reserved</Text>
           <Stack direction={'row'} mr={{base:8, lg: 48}} mb={4}>
-            <SocialButton label={'Twitter'} href={'#'}>
+            <SocialButton label={'Twitter'} href={'https://twitter.com/AzukiApeSC'} target="_blank" rel="noreferrer">
               <FaTwitter />
             </SocialButton>
-            <SocialButton label={'YouTube'} href={'#'}>
-              <FaYoutube />
-            </SocialButton>
-            <SocialButton label={'Instagram'} href={'#'}>
+            <SocialButton label={'Instagram'} href='https://www.instagram.com/azukiapesocialclub' target="_blank" rel="noreferrer">
               <FaInstagram />
+            </SocialButton>
+            <SocialButton label={'Discord'} href='https://discord.gg/hxBx9y2urE' target="_blank" rel="noreferrer">
+              <FaDiscord />
+            </SocialButton>
+            <SocialButton label={'Opensea'} href='https://www.instagram.com/azukiapesocialclub' target="_blank" rel="noreferrer">
+                <Image src={opensea} width={4}/>
             </SocialButton>
           </Stack>
         </Container>
