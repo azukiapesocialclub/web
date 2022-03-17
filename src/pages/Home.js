@@ -415,15 +415,15 @@ const Home = () => {
         
       </Box>
       <Box
-        display={{base:"block",lg:"flex"}}
+        display={{base:"block",xl:"flex"}}
         justifyContent="space-between"
         alignItems="space-between"
-        m={8}
-        ml={{base: 8, lg:64}}
-        mr={{base: 8, lg:64}}
-        mt={{base: 8, lg:24}}
+        // m={8}
+        ml={{base: 8, lg:32, xl: 64}}
+        mr={{base: 8, lg:32, xl: 64}}
+        mt={{base: 8, lg:12, xl: 32}}
       >
-        <Box>
+        <Box mr={{base: 0, lg:0, xl: 48}}>
           <Text color="#ffffff" className="heading" fontSize={"3xl"}>Welcome to Azuki Ape Social Club</Text>
           <Divider
             borderColor="blackAlpha.500"
@@ -432,18 +432,19 @@ const Home = () => {
             opacity={1}
             mt={4}
           />
-          <Text color="#ffffff" maxWidth={480} mt={8}>
-            We are a membership only club of 3,333 Azuki Apes, with membership
-            only accessible via the minting of an Azuki Ape NFT. We are
-            committed to creating an exclusive societal club that offers members
-            various initial and long-term benefits, including merchandise,
-            access to Alpha WL projects, DAO access, and later with an ERC-20
-            token that members can earn passive income with. Please note, this
-            token will be dependent on the completion of mint
+          <Text color="#ffffff" mt={8}>
+          Welcome to Azuki Ape Social Club (AASC). We are a membership only club of 3,333 Azuki Apes, with membership only accessible via the minting or purchasing of an Azuki Ape NFT. We are committed to creating an exclusive societal club that offers members various initial and long-term benefits, including merchandise, tangible and NFT based giveaways, access to Alpha WL projects, and exclusive access to future AASC generational mints. 
+          <br/>
+          <br/>
+          We will never over promise or underdeliver to our members. We would rather under promise and over deliver, and that comes through the delivery of truth and openness. All of our aims and goals are achievable through the completion of a successful mint. It is important that we stress this from the outset. We are an open and honest team, looking to build an exclusive societal membership based on a shared affinity of NFT’s. No gimmicks. 
           </Text>
         </Box>
-        <Box maxWidth={{base:"100%",lg:"30%"}} mt={{base:4, lg:0}} >
-          <Grid templateColumns="repeat(2, 1fr)" gap={4} display="grid">
+        <Box maxWidth={{base:"100%", lg:"100%", xl: "30%"}} mt={{base:4, lg:8, xl:0}} >
+          <Grid templateColumns={{
+            base:"repeat(2, 1fr)",
+            lg:"repeat(4, 1fr)",
+            xl:"repeat(2, 1fr)"
+            }} gap={4} display="grid">
             <Image
               height="auto"
               width="auto"
@@ -476,9 +477,9 @@ const Home = () => {
         justifyContent="space-between"
         alignItems="space-between"
         m={8}
-        ml={{base: 8, lg:64}}
-        mr={{base: 8, lg:64}}
-        mt={{base: 8, lg:24}}
+        ml={{base: 8, lg: 32, xl:64}}
+        mr={{base: 8, lg: 32, xl:64}}
+        mt={{base: 8, lg: 12, xl:24}}
       >
         <Box>
           <Text id="roadmap" color="#ffffff" className="heading" fontSize={"3xl"}>Roadmap</Text>
@@ -490,6 +491,7 @@ const Home = () => {
             mt={4}
           />
           <Box mt={8}>
+            <Text color="#ffffff" mb={8}>Please note, the below roadmap is ever changing in line with membership requests and input, as well as the highly evolving space in which we find ourselves in. Therefore, we are fluid in terms of the aims of the Azuki Ape Social Club, based on membership desires and the changing space. We are committed to ensuring our social club is inclusive and representative of the members within it, with equality and altruism playing a central role in our decision making</Text>
             <Text color="#ffffff" className="heading" fontSize={"2xl"}>Phase 1</Text>
             <Box display="flex" alignItems="stretch" justifyContent="flex-start" mt={4}>
               <Image
@@ -501,8 +503,7 @@ const Home = () => {
                 borderRadius={100}
               />
               <Text color="#ffffff">
-              Build the Azuki Ape Social Club Twitter page through organic
-              growth. 
+              Build the Azuki Ape Social Club Twitter page through organic growth. 
               </Text>
             </Box>
             <Box display="flex" alignItems="stretch" justifyContent="flex-start">
@@ -683,11 +684,7 @@ const Home = () => {
                 borderRadius={100}
               />
               <Text color="#ffffff">
-              Open discussions with the Azuki Ape Social Club pertaining to the 
-              potential creation of an ERC-20 token that members could receive. 
-              Utility from this token will be decided by the membership. 
-              Initial thoughts include access to merchandise, passive income, 
-              live events, or future mints of potential secondary collections. 
+              Introduce the notion of AASC Gen 2 - Avolving Apes. Azuki Ape holders will be eligible for a free mint based on their holdings. At this stage, the development of Gen 2 will involve the creation of multiple new designs of Neanderthals, with various new traits, as well as old ones. Gen 2 will follow the same artistic integrity of Gen 1, and will be marketed using the same organic focus. 
               </Text>
             </Box>
             <Box display="flex" alignItems="stretch" justifyContent="flex-start" >
@@ -719,6 +716,23 @@ const Home = () => {
               and WL spots for projects of interest.
               </Text>
           </Box>
+
+          <Box mt={8}>
+            <Text color="#ffffff" className="heading" fontSize={"2xl"}>Phase 4</Text>
+            <Box display="flex" alignItems="stretch" justifyContent="flex-start" mt={4}>
+              <Image
+                mt={1}
+                mr={2}
+                height={4}
+                width={4}
+                src="https://pbs.twimg.com/profile_images/1487429268921622531/woPzkzcQ_400x400.jpg"
+                borderRadius={100}
+              />
+              <Text color="#ffffff">
+              The apes will avolve… AASC Gen 2 comes to life - More to follow
+              </Text>
+            </Box>
+          </Box>
         </Box>
       </Box>
 
@@ -726,15 +740,14 @@ const Home = () => {
         display={{base:"block",lg:"flex"}}
         justifyContent="space-between"
         alignItems="space-between"
-        m={8}
-        ml={{base: 8, lg:64}}
-        mr={{base: 8, lg:64}}
-        mt={{base: 8, lg:24}}
+        ml={{base: 8, lg: 32, xl:64}}
+        mr={{base: 8, lg: 32, xl:64}}
+        mt={{base: 8, lg: 12, xl:24}}
         id="merchandise"
       >
 
       
-        <Box>
+        <Box mr={{base: 0, lg:12, xl: 48}}>
           <Text color="#ffffff" className="heading" fontSize={"3xl"}>AASC Merchandise</Text>
           <Divider
             borderColor="blackAlpha.500"
@@ -743,7 +756,7 @@ const Home = () => {
             opacity={1}
             mt={4}
           />
-          <Text color="#ffffff" maxWidth={480} mt={8}>
+          <Text color="#ffffff" mt={8}>
           As an exclusive societal club, we need to stand out. We want people to recognise our society and know that when they see our logo, they are looking at the most exclusive social club on the Blockchain. 
 
 As a result of this desire, we will be launching our own merchandise for members to wear. Such merchandise will include this AASC T-Shirt which WL members will receive for FREE! 
@@ -798,10 +811,10 @@ Watch this space for more street wear inspired AASC merch!
         display="block"
         justifyContent="space-between"
         alignItems="space-between"
-        ml={{base: 8, lg:64}}
-        mr={{base: 8, lg:64}}
-        mt={{base: 8, lg:24}}
-        pb={{base: 8, lg:32}}
+        ml={{base: 8, lg: 32, xl:64}}
+        mr={{base: 8, lg: 32, xl:64}}
+        mt={{base: 8, lg: 12, xl:24}}
+        pb={{base: 8, lg: 16, xl: 32}}
       >
         <Box>
           <Text id="team" color="#ffffff" className="heading" fontSize={"3xl"}>The Team</Text>
@@ -816,8 +829,8 @@ Watch this space for more street wear inspired AASC merch!
             AASC is a creation of three minds. These minds fused together two prodigious NFT collections into one remarkably exclusive social club.
           </Text>
         </Box>
-        <Box display="flex" alignItems="flex-start" justifyContent="flex-start" mt={4}>
-          <Box mr={4} maxWidth={{base:"720px", lg:"1080px"}}>
+        <Box display="flex" alignItems="center" justifyContent="center" mt={8}>
+          <Box maxWidth={{base:"720px", lg:"1080px"}}>
             <Image
               height="auto"
               width="auto"

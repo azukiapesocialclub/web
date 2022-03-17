@@ -42,13 +42,12 @@ import {
     return (
       <Box
         bg={"#202020"}
-        color={'gray.50'}>
+        color={'gray.50'} px={{base:8, lg: 24}}>
         <Container
           as={Stack}
           maxW={'6xl'}
           py={4}
           direction={{ base: 'column', md: 'row' }}
-          mx={24}
           justify={{ base: 'center', md: 'space-between' }}
           align={{ base: 'center', md: 'center' }}>
           
@@ -57,27 +56,25 @@ import {
             width="48px"
             src="https://pbs.twimg.com/profile_images/1487429268921622531/woPzkzcQ_400x400.jpg"
             borderRadius={100}
-            ml={{base:8, lg: 24}}
             
             my={2}
-            mr={4}
         />
 
-          <Text>© 2022 Azuki Ape Social Club. All rights reserved</Text>
-          <Stack direction={'row'} mr={{base:8, lg: 48}} mb={4}>
-            <SocialButton label={'Twitter'} href={'https://twitter.com/AzukiApeSC'} target="_blank" rel="noreferrer">
-              <FaTwitter />
-            </SocialButton>
-            <SocialButton label={'Instagram'} href='https://www.instagram.com/azukiapesocialclub' target="_blank" rel="noreferrer">
-              <FaInstagram />
-            </SocialButton>
-            <SocialButton label={'Discord'} href='https://discord.gg/hxBx9y2urE' target="_blank" rel="noreferrer">
-              <FaDiscord />
-            </SocialButton>
-            <SocialButton label={'Opensea'} href='https://www.instagram.com/azukiapesocialclub' target="_blank" rel="noreferrer">
-                <Image src={opensea} width={4}/>
-            </SocialButton>
-          </Stack>
+        <Text textAlign={{base:"center", lg: "start"}}>© 2022 Azuki Ape Social Club. All rights reserved</Text>
+        <Stack direction={'row'} mb={4}>
+          <SocialButton label={'Twitter'} href={'https://twitter.com/AzukiApeSC'} target="_blank" rel="noreferrer">
+            <FaTwitter />
+          </SocialButton>
+          <SocialButton label={'Instagram'} href='https://www.instagram.com/azukiapesocialclub' target="_blank" rel="noreferrer">
+            <FaInstagram />
+          </SocialButton>
+          <SocialButton label={'Discord'} href='https://discord.gg/hxBx9y2urE' target="_blank" rel="noreferrer">
+            <FaDiscord />
+          </SocialButton>
+          <SocialButton label={'Opensea'} href='https://www.instagram.com/azukiapesocialclub' target="_blank" rel="noreferrer">
+              <Image src={opensea} width={4}/>
+          </SocialButton>
+        </Stack>
         </Container>
       </Box>
     );
