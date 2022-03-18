@@ -25,7 +25,7 @@ import merch1 from "../assets/merch/model_1.png";
 import merch2 from "../assets/merch/model_2.png";
 import merch3 from "../assets/merch/model_3.png";
 import gen2 from "../assets/gen_2.jpg";
-import opensea from "../assets/opensea.svg";
+// import opensea from "../assets/opensea.svg";
 import moment from "moment-timezone";
 import Slider from "react-slick";
 import Web3 from 'web3';
