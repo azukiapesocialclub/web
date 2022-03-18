@@ -16,12 +16,15 @@ import {
   ModalCloseButton,
   useDisclosure,
   useToast,
-} from '@chakra-ui/react'
+  Stack
+} from '@chakra-ui/react';
+import { Link } from "react-scroll";
 import meettheteam from "../assets/meet_the_team.png";
 import Navbar from '../components/Navbar';
 import merch1 from "../assets/merch/model_1.png";
 import merch2 from "../assets/merch/model_2.png";
 import merch3 from "../assets/merch/model_3.png";
+import gen2 from "../assets/gen_2.jpg";
 import opensea from "../assets/opensea.svg";
 import moment from "moment-timezone";
 import Slider from "react-slick";
@@ -317,14 +320,23 @@ const Home = () => {
   const renderMintContainer = () => {
     const now = moment.tz(moment.now(), "Europe/London");
     if(minted >= 3333) {
-      return <Box display="flex" alignItems="center" justifyContent="space-between">
-        <Text color="#171717" fontSize={"2rem"} className="heading">  
-          Sold Out!
-        </Text>
-        <a href='https://opensea.io/collection/azukiapesocialclub' target="_blank" rel="noreferrer">
-            <Image src={opensea} width={8} filter="invert(100%)"/>
-        </a>
-      </Box>;
+      return <Stack align="center">
+        <Link to="avolve"
+              smooth={true}
+              offset={-100}
+              style={{cursor:'pointer'}}
+              onClick={onClose}>
+        <Button
+          variant="outline"
+          size="lg"
+          color="#B32033"
+          className="heading"
+          border='2px' borderColor='#B32033'
+        >
+          AASC GEN 2 Coming Soon
+        </Button>
+        </Link>
+      </Stack>;
     }
     if(now.isBefore(whitelistMintDate)) {
       return <>
@@ -414,6 +426,8 @@ const Home = () => {
         </Box>
         
       </Box>
+
+      {/* Welcome */}
       <Box
         display={{base:"block",xl:"flex"}}
         justifyContent="space-between"
@@ -423,8 +437,8 @@ const Home = () => {
         mr={{base: 8, lg:32, xl: 64}}
         mt={{base: 8, lg:12, xl: 32}}
       >
-        <Box mr={{base: 0, lg:0, xl: 48}}>
-          <Text color="#ffffff" className="heading" fontSize={"3xl"}>Welcome to Azuki Ape Social Club</Text>
+        <Box mr={{base: 0, lg:0, xl: 24}}>
+          <Text color="#ffffff" className="heading" fontSize={"3xl"}>Welcome to the Azuki Ape Social Club</Text>
           <Divider
             borderColor="blackAlpha.500"
             height={1}
@@ -433,7 +447,7 @@ const Home = () => {
             mt={4}
           />
           <Text color="#ffffff" mt={8}>
-          Welcome to Azuki Ape Social Club (AASC). We are a membership only club of 3,333 Azuki Apes, with membership only accessible via the minting or purchasing of an Azuki Ape NFT. We are committed to creating an exclusive societal club that offers members various initial and long-term benefits, including merchandise, tangible and NFT based giveaways, access to Alpha WL projects, and exclusive access to future AASC generational mints. 
+          Welcome to the Azuki Ape Social Club (AASC). We are a membership only club of 3,333 Azuki Apes, with membership only accessible via the minting or purchasing of an Azuki Ape NFT. We are committed to creating an exclusive societal club that offers members various initial and long-term benefits, including merchandise, tangible and NFT based giveaways, access to Alpha WL projects, and exclusive access to future AASC generational mints. 
           <br/>
           <br/>
           We will never over promise or underdeliver to our members. We would rather under promise and over deliver, and that comes through the delivery of truth and openness. All of our aims and goals are achievable through the completion of a successful mint. It is important that we stress this from the outset. We are an open and honest team, looking to build an exclusive societal membership based on a shared affinity of NFT’s. No gimmicks. 
@@ -472,6 +486,57 @@ const Home = () => {
           </Grid>
         </Box>
       </Box>
+
+      {/* Avolving Ape */}
+      <Box
+        ml={{base: 8, lg: 32, xl:64}}
+        mr={{base: 8, lg: 32, xl:64}}
+        mt={{base: 8, lg: 12, xl:24}}
+        id="avolve"
+      >
+          <Text color="#ffffff" className="heading" fontSize={"3xl"}>Avolving Apes Social Club (AASC Gen 2)</Text>
+          <Divider
+            borderColor="blackAlpha.500"
+            height={1}
+            backgroundColor="#B32033"
+            opacity={1}
+            mt={4}
+          />
+          <Box display={{base:"block",lg:"flex"}} justifyContent="space-between" alignContent="space-between">
+            <Image
+              height="100%"
+              width={{base:"100%", lg:"35%"}}
+              src={gen2}
+              borderRadius={8}
+              mt={8}
+              objectFit="cover"
+            />
+          <Text color="#ffffff" mt={8} ml={{base:0, lg:8}}>
+          Apes don't mutate, they Avolve… 
+          <br/>
+          <br/>
+
+Soon, we will be launching the second arm of AASC in the form of Avolving Apes. This will take shape in the creation of a 3,333 collection of Avolving Apes which are essentially the Avolved neanderthal ancestors to the Azuki Apes. 
+<br/>
+<br/>
+
+Whilst the Avolving Apes will share the same artistic integrity of the Azuki Apes, they will be a completely different species, comprising both new and old traits. Whilst the Azuki Apes were praised for their artistic brilliance, the Avolving Apes will showcase another level in aesthetic design.
+          <br/>
+          <br/>
+
+
+Existing Azuki Ape holders will receive at least one free mint for the Avolving Apes, if they have either delisted their Azuki Ape(s) or listed them for at least 0.5 Ethereum. Please see the graphic below for further information. 
+<br/>
+<br/>
+
+Follow our Twitter and Discord announcements for upcoming sneak peeks, and further insight into Gen 2. 
+          </Text>
+          
+        </Box>
+      </Box>
+
+
+      {/* Roadmap */}
       <Box
         display="flex"
         justifyContent="space-between"
@@ -736,6 +801,8 @@ const Home = () => {
         </Box>
       </Box>
 
+
+      {/* Merchandise */}
       <Box
         display={{base:"block",lg:"flex"}}
         justifyContent="space-between"
@@ -745,9 +812,7 @@ const Home = () => {
         mt={{base: 8, lg: 12, xl:24}}
         id="merchandise"
       >
-
-      
-        <Box mr={{base: 0, lg:12, xl: 48}}>
+        <Box mr={{base: 0, lg:12, xl: 12}}>
           <Text color="#ffffff" className="heading" fontSize={"3xl"}>AASC Merchandise</Text>
           <Divider
             borderColor="blackAlpha.500"
@@ -807,6 +872,8 @@ Watch this space for more street wear inspired AASC merch!
         </Box>
       </Box>
 
+
+      {/* The Teams */}
       <Box
         display="block"
         justifyContent="space-between"
