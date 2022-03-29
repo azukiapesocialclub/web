@@ -16,9 +16,7 @@ import {
   ModalCloseButton,
   useDisclosure,
   useToast,
-  Stack
 } from '@chakra-ui/react';
-import { Link } from "react-scroll";
 import meettheteam from "../assets/meet_the_team.png";
 import Navbar from '../components/Navbar';
 import merch1 from "../assets/merch/model_1.png";
