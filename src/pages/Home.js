@@ -36,9 +36,9 @@ import loader from "../assets/loader.svg";
 import loaderWhite from "../assets/loader_white.svg";
 import Footer from '../components/Footer';
 
-const freeMintDate = moment.tz("2022-04-16 12:00", "Europe/London");
-const whitelistMintDate = moment.tz("2022-04-16 16:00", "Europe/London");
-const publicMintDate = moment.tz("2022-04-16 20:00", "Europe/London");
+const freeMintDate = moment.tz("2022-04-27 12:00", "Europe/London");
+const whitelistMintDate = moment.tz("2022-04-27 16:00", "Europe/London");
+const publicMintDate = moment.tz("2022-04-27 20:00", "Europe/London");
 
 const Home = () => {
   const [web3, setWeb3] = useState({});
