@@ -16,6 +16,7 @@ import {
   ModalCloseButton,
   useDisclosure,
   useToast,
+  Stack
 } from '@chakra-ui/react';
 import meettheteam from "../assets/meet_the_team.png";
 import Navbar from '../components/Navbar';
@@ -35,6 +36,7 @@ import allowlist from "../config/allowlist";
 import loader from "../assets/loader.svg";
 import loaderWhite from "../assets/loader_white.svg";
 import Footer from '../components/Footer';
+import { Link } from "react-scroll";
 
 const freeMintDate = moment.tz("2022-04-27 12:00", "Europe/London");
 const whitelistMintDate = moment.tz("2022-04-27 16:00", "Europe/London");
@@ -319,62 +321,60 @@ const Home = () => {
   }
 
   const renderMintContainer = () => {
-    const now = moment.tz(moment.now(), "Europe/London");
-    // if(minted >= 3333) {
-    //   return <Stack align="center">
-    //     <Link to="avolve"
-    //           smooth={true}
-    //           offset={-100}
-    //           style={{cursor:'pointer'}}
-    //           onClick={onClose}>
-    //     <Button
-    //       variant="outline"
-    //       size="lg"
-    //       color="#B32033"
-    //       className="heading"
-    //       border='2px' borderColor='#B32033'
-    //     >
-    //       AASC GEN 2 Coming Soon
-    //     </Button>
-    //     </Link>
-    //   </Stack>;
+    // const now = moment.tz(moment.now(), "Europe/London");
+    return <Stack align="center">
+      <Link to="avolve"
+            smooth={true}
+            offset={-100}
+            style={{cursor:'pointer'}}
+            onClick={onClose}>
+      <Button
+        variant="outline"
+        size="lg"
+        color="#B32033"
+        className="heading"
+        border='2px' borderColor='#B32033'
+      >
+        AASC GEN 2 Coming Soon
+      </Button>
+      </Link>
+    </Stack>;
+    // if(now.isBefore(freeMintDate)) {
+    //   return <>
+    //     <Text color="#171717" fontSize={"1rem"} className="heading">  
+    //       AASC Gen 2 Minting In
+    //     </Text>
+    //     <Text mt={-2} color="#171717" fontSize={"2rem"} className="heading">  
+    //       {getCountdown().days} days
+    //     </Text>
+    //   </>
     // }
-    if(now.isBefore(freeMintDate)) {
-      return <>
-        <Text color="#171717" fontSize={"1rem"} className="heading">  
-          AASC Gen 2 Minting In
-        </Text>
-        <Text mt={-2} color="#171717" fontSize={"2rem"} className="heading">  
-          {getCountdown().days} days
-        </Text>
-      </>
-    }
-    if(now.isAfter(freeMintDate) && now.isBefore(whitelistMintDate)) {
-      return <>
-        <Text color="#171717" fontSize={"1rem"} className="heading">  
-          Whitelist sale starts in {countdown.hours} hours {countdown.minutes} minutes {countdown.seconds} seconds
-        </Text>
-        {allowed?renderMintButton():<Text color="#171717" fontSize={"1.5rem"} className="heading">  
-          You are not eliglible for free mint
-        </Text>}
-        <Text className='heading' float={"right"} fontSize={"sm"}> {minted} / 3333 </Text>
-      </>
-    }
-    if(now.isAfter(whitelistMintDate) && now.isBefore(publicMintDate)) {
-      return <>
-        <Text color="#171717" fontSize={"1rem"} className="heading">  
-          Public sale starts in {countdown.hours} hours {countdown.minutes} minutes {countdown.seconds} seconds
-        </Text>
-        {allowed?renderMintButton():<Text color="#171717" fontSize={"1.5rem"} className="heading">  
-          You are not whitelisted
-        </Text>}
-        <Text className='heading' float={"right"} fontSize={"sm"}> {minted} / 3333 </Text>
-      </>
-    }
-    return <>
-      {renderMintButton()}
-      <Text className='heading' float={"right"} fontSize={"sm"}> {minted} / 3333 </Text>
-    </>
+    // if(now.isAfter(freeMintDate) && now.isBefore(whitelistMintDate)) {
+    //   return <>
+    //     <Text color="#171717" fontSize={"1rem"} className="heading">  
+    //       Whitelist sale starts in {countdown.hours} hours {countdown.minutes} minutes {countdown.seconds} seconds
+    //     </Text>
+    //     {allowed?renderMintButton():<Text color="#171717" fontSize={"1.5rem"} className="heading">  
+    //       You are not eliglible for free mint
+    //     </Text>}
+    //     <Text className='heading' float={"right"} fontSize={"sm"}> {minted} / 3333 </Text>
+    //   </>
+    // }
+    // if(now.isAfter(whitelistMintDate) && now.isBefore(publicMintDate)) {
+    //   return <>
+    //     <Text color="#171717" fontSize={"1rem"} className="heading">  
+    //       Public sale starts in {countdown.hours} hours {countdown.minutes} minutes {countdown.seconds} seconds
+    //     </Text>
+    //     {allowed?renderMintButton():<Text color="#171717" fontSize={"1.5rem"} className="heading">  
+    //       You are not whitelisted
+    //     </Text>}
+    //     <Text className='heading' float={"right"} fontSize={"sm"}> {minted} / 3333 </Text>
+    //   </>
+    // }
+    // return <>
+    //   {renderMintButton()}
+    //   <Text className='heading' float={"right"} fontSize={"sm"}> {minted} / 3333 </Text>
+    // </>
   }
 
   return (
