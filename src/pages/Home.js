@@ -537,7 +537,7 @@ Whilst the Avolving Apes will share the same artistic integrity of the Azuki Ape
           <br/>
 
 
-Existing Azuki Ape holders will receive at least one free mint for the Avolving Apes, if they have either delisted their Azuki Ape(s) or listed them for at least 0.5 Ethereum. Please see the graphic below for further information. 
+Existing Azuki Ape holders (Gen 1) will receive special access/benefits to Gen 2 that will be disclosed closer to launch. We plan to ensure that Gen 1 holders will have a direct benefit to the launch of Gen 2.
 <br/>
 <br/>
 
