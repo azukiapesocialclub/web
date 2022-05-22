@@ -33,6 +33,9 @@ const Navbar = () => {
         </Link>
         </Box>
         <Box mr={8}>
+        <a style={{cursor:'pointer', color: '#ffffff'}} href='https://store.azukiapesocialclub.com' color="#ffffff" className="heading navbar-item navbar-item-ltr">Store</a>
+        </Box>
+        <Box mr={8}>
         <Link 
             to="avolve"
             smooth={true}
