@@ -37,6 +37,7 @@ import loader from "../assets/loader.svg";
 import loaderWhite from "../assets/loader_white.svg";
 import Footer from '../components/Footer';
 import { Link } from "react-scroll";
+import { ExternalLinkIcon } from '@chakra-ui/icons';
 
 const freeMintDate = moment.tz("2022-04-27 12:00", "Europe/London");
 const whitelistMintDate = moment.tz("2022-04-27 16:00", "Europe/London");
@@ -334,8 +335,9 @@ const Home = () => {
         color="#B32033"
         className="heading"
         border='2px' borderColor='#B32033'
+        onClick={()=>{window.open('https://opensea.io/collection/azukiapesocialclub','blank')}}
       >
-        AASC GEN 2 Coming Soon
+        Buy on Opensea &nbsp; <ExternalLinkIcon mx='2px' />
       </Button>
       </Link>
     </Stack>;
@@ -498,55 +500,6 @@ const Home = () => {
           </Grid>
         </Box>
       </Box>
-
-      {/* Avolving Ape */}
-      <Box
-        ml={{base: 8, lg: 32, xl:64}}
-        mr={{base: 8, lg: 32, xl:64}}
-        mt={{base: 8, lg: 12, xl:24}}
-        id="avolve"
-      >
-          <Text color="#ffffff" className="heading" fontSize={"3xl"}>Avolving Apes Social Club (AASC Gen 2)</Text>
-          <Divider
-            borderColor="blackAlpha.500"
-            height={1}
-            backgroundColor="#B32033"
-            opacity={1}
-            mt={4}
-          />
-          <Box display={{base:"block",lg:"flex"}} justifyContent="space-between" alignContent="space-between">
-            <Image
-              height="100%"
-              width={{base:"100%", lg:"35%"}}
-              src={gen2}
-              borderRadius={8}
-              mt={8}
-              objectFit="cover"
-            />
-          <Text color="#ffffff" mt={8} ml={{base:0, lg:8}}>
-          Apes don't mutate, they Avolve… 
-          <br/>
-          <br/>
-
-Soon, we will be launching the second arm of AASC in the form of Avolving Apes. This will take shape in the creation of a 3,333 collection of Avolving Apes which are essentially the Avolved neanderthal ancestors to the Azuki Apes. 
-<br/>
-<br/>
-
-Whilst the Avolving Apes will share the same artistic integrity of the Azuki Apes, they will be a completely different species, comprising both new and old traits. Whilst the Azuki Apes were praised for their artistic brilliance, the Avolving Apes will showcase another level in aesthetic design.
-          <br/>
-          <br/>
-
-
-Existing Azuki Ape holders (Gen 1) will receive special access/benefits to Gen 2 that will be disclosed closer to launch. We plan to ensure that Gen 1 holders will have a direct benefit to the launch of Gen 2.
-<br/>
-<br/>
-
-Follow our Twitter and Discord announcements for upcoming sneak peeks, and further insight into Gen 2. 
-          </Text>
-          
-        </Box>
-      </Box>
-
 
       {/* Roadmap */}
       <Box
@@ -751,7 +704,7 @@ Follow our Twitter and Discord announcements for upcoming sneak peeks, and furth
             </Box>
             
             </Box>
-            <Box display="flex" alignItems="stretch" justifyContent="flex-start" >
+            {/* <Box display="flex" alignItems="stretch" justifyContent="flex-start" >
               <Image
                 mt={1}
                 mr={2}
@@ -763,7 +716,7 @@ Follow our Twitter and Discord announcements for upcoming sneak peeks, and furth
               <Text color="#ffffff">
               Introduce the notion of AASC Gen 2 - Avolving Apes. Azuki Ape holders will be eligible for a free mint based on their holdings. At this stage, the development of Gen 2 will involve the creation of multiple new designs of Neanderthals, with various new traits, as well as old ones. Gen 2 will follow the same artistic integrity of Gen 1, and will be marketed using the same organic focus. 
               </Text>
-            </Box>
+            </Box> */}
             <Box display="flex" alignItems="stretch" justifyContent="flex-start" >
               <Image
                 mt={1}
@@ -794,7 +747,7 @@ Follow our Twitter and Discord announcements for upcoming sneak peeks, and furth
               </Text>
           </Box>
 
-          <Box mt={8}>
+          {/* <Box mt={8}>
             <Text color="#ffffff" className="heading" fontSize={"2xl"}>Phase 4</Text>
             <Box display="flex" alignItems="stretch" justifyContent="flex-start" mt={4}>
               <Image
@@ -809,7 +762,7 @@ Follow our Twitter and Discord announcements for upcoming sneak peeks, and furth
               The apes will avolve… AASC Gen 2 comes to life - More to follow
               </Text>
             </Box>
-          </Box>
+          </Box> */}
         </Box>
       </Box>
 

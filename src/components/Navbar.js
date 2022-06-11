@@ -37,17 +37,6 @@ const Navbar = () => {
         </Box>
         <Box mr={8}>
         <Link 
-            to="avolve"
-            smooth={true}
-            offset={-100}
-            style={{cursor:'pointer'}}
-            onClick={onClose}
-        > 
-        <Text color="#ffffff" className="heading navbar-item navbar-item-ltr">Avolve</Text>
-        </Link>
-        </Box>
-        <Box mr={8}>
-        <Link 
             to="roadmap"
             smooth={true}
             offset={-100}
