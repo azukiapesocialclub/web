@@ -845,10 +845,10 @@ Watch this space for more street wear inspired AASC merch!
         alignItems="space-between"
         ml={{base: 8, lg: 32, xl:64}}
         mr={{base: 8, lg: 32, xl:64}}
-        mt={{base: 8, lg: 12, xl:24}}
+        // mt={{base: 8, lg: 12, xl:24}}
         pb={{base: 8, lg: 16, xl: 32}}
       >
-        <Box>
+        {/* <Box>
           <Text id="team" color="#ffffff" className="heading" fontSize={"3xl"}>The Team</Text>
           <Divider
             borderColor="blackAlpha.500"
@@ -870,7 +870,7 @@ Watch this space for more street wear inspired AASC merch!
               borderRadius={8}
             />
           </Box>
-        </Box>
+        </Box> */}
       </Box>
     </Box>
     <Footer/>
